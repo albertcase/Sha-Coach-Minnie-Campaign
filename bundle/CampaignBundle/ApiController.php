@@ -3,14 +3,19 @@
 namespace CampaignBundle;
 
 use Core\Controller;
+use Lib\PDO;
 
 class ApiController extends Controller
 {
+    private $_pdo;
+
     public function __construct() {
 
     	global $user;
 
         parent::__construct();
+
+        $this->_pdo = PDO::getInstance();
 
         // if(!$user->uid) {
 	       //  $this->statusPrint('100', 'access deny!');
@@ -19,7 +24,22 @@ class ApiController extends Controller
 
     public function quotaAction()
     {
-    	echo "预约场次api";exit;
+        $data = [];
+        $quotas = $this->findQuota();
+        if($quotas) 
+            $data = $quotas;
+        $this->dataPrint($data);
+    }
+
+    private function findQuota(){
+        $sql = "SELECT `name`, `num` FROM `quota`";
+        $query = $this->_pdo->prepare($sql);    
+        $query->execute();
+        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
+        if($row) {
+          return $row;
+        }
+        return NULL;
     }
 
     public function submitAction()
