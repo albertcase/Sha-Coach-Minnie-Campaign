@@ -17,6 +17,11 @@ class ApiController extends Controller
         // } 
     }
 
+    public function quotaAction()
+    {
+    	echo "预约场次api";exit;
+    }
+
     public function submitAction()
     {
     	echo "预约api";exit;
