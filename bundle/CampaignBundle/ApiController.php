@@ -31,6 +31,61 @@ class ApiController extends Controller
         $this->dataPrint($data);
     }
 
+    // 预约提交
+    // 1.验证字段
+    // 2.验证是否预约
+    // 3.验证库存
+    // 4.预约
+    public function submitAction()
+    {
+        global $user;
+
+        $jsonData = file_get_contents("php://input"); 
+        $apiData = json_decode($jsonData);
+        if(is_null($apiData)) {
+            $this->statusPrint('101', 'api param is not json!');
+        }
+        if(!$apiData->qid) {
+            $this->statusPrint('102', '预约场次不能为空！');
+        }
+
+        // 是否已经预约过
+        if($this->isSubmit($user->openid)) {
+            $this->statusPrint('103', '您已经预约过！');
+        }
+
+        // 场次名额是否还有
+        if(!$this->hasQuota($apiData->qid)) {
+            $this->statusPrint('104', '预约名额已经全部预约完！');
+        }
+
+    	if(!$this->submit($apiData, $user->openid)) {
+            $this->statusPrint('105', '预约失败！');
+        }
+
+        $this->statusPrint('200', '预约成功！');
+    }
+
+    // 预约
+    private function submit($datadat, $openid) 
+    {
+
+    }
+
+    // 验证是否预约过
+    private function isSubmit($openid) 
+    {
+        return 1;
+    }
+
+    // 查找是否还有预约名额
+    private function hasQuota($qid) 
+    {
+        return 1;
+    }
+
+
+    // 查找场次
     private function findQuota(){
         $sql = "SELECT `name`, `num` FROM `quota`";
         $query = $this->_pdo->prepare($sql);    
@@ -41,37 +96,4 @@ class ApiController extends Controller
         }
         return NULL;
     }
-
-    public function submitAction()
-    {
-    	echo "预约api";exit;
-    }
-
-    public function formAction()
-    {
-
-    	global $user;
-
-    	$request = $this->request;
-    	$fields = array(
-			'name' => array('notnull', '120'),
-			'cellphone' => array('cellphone', '121'),
-			'address' => array('notnull', '122'),
-		);
-		$request->validation($fields);
-		$DatabaseAPI = new \Lib\DatabaseAPI();
-		$data = new \stdClass();
-		$data->uid = $user->uid;
-		$data->name = $request->request->get('name');
-		$data->cellphone = $request->request->get('cellphone');
-		$data->address = $request->request->get('address');
-
-		if($DatabaseAPI->insertInfo($data)) {
-			$data = array('status' => 1);
-			$this->dataPrint($data);
-		} else {
-			$this->statusPrint('0', 'failed');
-		}
-    }
-
 }
