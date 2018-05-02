@@ -12,6 +12,7 @@ $routers['/clear'] = array('CampaignBundle\Page', 'clearCookie');
 
 //Campaign
 $routers['/'] = array('CampaignBundle\Page', 'index');
+$routers['/apply'] = array('CampaignBundle\Page', 'apply'); //预约页面
 $routers['/qrcode'] = array('CampaignBundle\Page', 'qrcode'); //二维码页面
 
 //API

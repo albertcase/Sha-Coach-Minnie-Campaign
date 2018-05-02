@@ -5,10 +5,12 @@ db: db/coach_minnie_campaign.sql
 初始化操作：
 初始化预约场次：php script/creare_quota.php 
 
-###正式链接
+---
 
 **url:** : 
+###1. /apply ：预约页面 [1./template/oldApply.tpl/php:已经导入用户的预约页面模版，2.／template/apply.tpl.php: 未导入用户的预约页面]
 
+###2. /qrcode: 预约结果页面（二维码页面）
 ---
 
 ### 获取预约场次API
