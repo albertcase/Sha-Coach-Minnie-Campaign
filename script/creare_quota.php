@@ -8,24 +8,33 @@ use Lib\PDO;
 use Lib\Redis;
 
 $quota = [
-	'2018-05-01' => 20,
-	'2018-05-02' => 10
+	'店铺1' => [
+		'2018年5月2日14时' => 10,
+		'2018年5月2日19时' => 20,
+	],
+	'店铺2' => [
+		'2018年5月2日14时' => 20,
+		'2018年5月2日19时' => 20,
+	]
 ];
 
-foreach ($quota as $k => $v) 
+foreach ($quota as $sk => $sv) 
 {
-	$res = insertQuota($k, $v);
-	if($res) {
-		echo "{$k} 场次名额设置成功!\n";
-	} else {
-		echo "{$k} 场次名额设置失败!\n";
+	foreach ($sv as $dk => $dv) {
+		$res = insertQuota($sk, $dk, $dv);
+		if($res) {
+			echo "{$sk} {$dk} 场次名额设置成功!\n";
+		} else {
+			echo "{$sk} {$dk} 场次名额设置失败!\n";
+		}
 	}
 }	
 
-function insertQuota($name, $quota)
+function insertQuota($shop, $date, $quota)
 {
 	$quotas = new \stdClass();
-	$quotas->name = $name;
+	$quotas->shop = $shop;
+	$quotas->date = $date;
 	$quotas->num = $quota;
 	$quotas->created = date('Y-m-d H:i:s');
 	$quotas->updated = date('Y-m-d H:i:s');

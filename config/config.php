@@ -11,10 +11,10 @@ define("ENV", 'dev');
 define("USER_STORAGE", 'COOKIE');
 
 //
-define("WECHAT_CAMPAIGN", false);
+define("WECHAT_CAMPAIGN", true);
 
 //Wechat Vendor
-define("WECHAT_VENDOR", 'default'); // default | coach
+define("WECHAT_VENDOR", 'coach'); // default | coach
 
 //Wechat config info
 define("TOKEN", 'xxx');
@@ -43,7 +43,8 @@ define("SCOPE", 'snsapi_base');
 
 //Wechat Authorize Page
 define("AUTHORIZE_URL", '[
-	"/"
+	"/apply",
+	"/qrcode"
 ]');
 
 //Account Access

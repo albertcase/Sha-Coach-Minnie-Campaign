@@ -27,8 +27,13 @@ class PageController extends Controller
 		$help = new HelpController();
 		$isOld = $help->isOldOpenid($user->openid);//
 		$quota = $help->findQuota();
+		foreach ($quota as $k => $v) {
+			$quota[$k]['name'] = $v['shop'] . ":". $v['date'];
+			unset($quota[$k]['shop']);
+			unset($quota[$k]['date']);
+		}
 		if($isOld) {
-			return $this->render('oldApply', ['quota' => $quota]);
+			return $this->render('old_apply', ['quota' => $quota]);
 		} else {
 			return $this->render('apply', ['quota' => $quota]);
 		}

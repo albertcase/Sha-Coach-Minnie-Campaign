@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.1)
 # Database: coach_minnie_campaign
-# Generation Time: 2018-04-27 03:53:36 +0000
+# Generation Time: 2018-05-02 08:48:04 +0000
 # ************************************************************
 
 
@@ -40,6 +40,20 @@ CREATE TABLE `info` (
 
 
 
+# Dump of table old_user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `old_user`;
+
+CREATE TABLE `old_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 # Dump of table quota
 # ------------------------------------------------------------
 
@@ -47,7 +61,8 @@ DROP TABLE IF EXISTS `quota`;
 
 CREATE TABLE `quota` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `shop` varchar(255) DEFAULT NULL,
+  `date` varchar(255) DEFAULT NULL,
   `num` varchar(255) DEFAULT '0',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
@@ -63,8 +78,10 @@ DROP TABLE IF EXISTS `submit`;
 
 CREATE TABLE `submit` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `openid` int(11) DEFAULT NULL,
-  `fields` int(11) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `qid` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `checkin` tinyint(1) DEFAULT '0',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,

@@ -4,28 +4,27 @@ namespace CampaignBundle;
 
 use Core\Controller;
 use Lib\PDO;
+use Lib\userAPI;
+use Lib\Helper;
+use CampaignBundle\HelpController;
 
 class ApiController extends Controller
 {
     private $_pdo;
 
-    public function __construct() {
-
+    public function __construct() 
+    {
     	global $user;
-
         parent::__construct();
-
         $this->_pdo = PDO::getInstance();
-
-        // if(!$user->uid) {
-	       //  $this->statusPrint('100', 'access deny!');
-        // } 
     }
 
+    // 查询预约场次列表
     public function quotaAction()
     {
         $data = [];
-        $quotas = $this->findQuota();
+        $help = new HelpController();
+        $quotas = $help->findQuota();
         if($quotas) 
             $data = $quotas;
         $this->dataPrint($data);
@@ -39,61 +38,50 @@ class ApiController extends Controller
     public function submitAction()
     {
         global $user;
+        $help = new HelpController();
 
         $jsonData = file_get_contents("php://input"); 
         $apiData = json_decode($jsonData);
         if(is_null($apiData)) {
-            $this->statusPrint('101', 'api param is not json!');
+            $this->statusPrint('101', 'API参数不是json格式！');
         }
+
         if(!$apiData->qid) {
             $this->statusPrint('102', '预约场次不能为空！');
         }
 
         // 是否已经预约过
-        if($this->isSubmit($user->openid)) {
+        if($help->isSubmit($user->openid)) {
             $this->statusPrint('103', '您已经预约过！');
         }
 
         // 场次名额是否还有
-        if(!$this->hasQuota($apiData->qid)) {
+        if(!$help->hasQuota($apiData->qid)) {
             $this->statusPrint('104', '预约名额已经全部预约完！');
         }
 
-    	if(!$this->submit($apiData, $user->openid)) {
+        $apiData->openid = $user->openid;
+    	if(!$help->submit($apiData)) {
             $this->statusPrint('105', '预约失败！');
         }
 
-        $this->statusPrint('200', '预约成功！');
+        $this->statusPrint('10', '预约成功！');
     }
 
-    // 预约
-    private function submit($datadat, $openid) 
+    // 模拟登陆
+    public function loginAction()
     {
-
-    }
-
-    // 验证是否预约过
-    private function isSubmit($openid) 
-    {
-        return 1;
-    }
-
-    // 查找是否还有预约名额
-    private function hasQuota($qid) 
-    {
-        return 1;
-    }
-
-
-    // 查找场次
-    private function findQuota(){
-        $sql = "SELECT `name`, `num` FROM `quota`";
-        $query = $this->_pdo->prepare($sql);    
-        $query->execute();
-        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
-        if($row) {
-          return $row;
+        global $user;
+        $userAPI = new UserAPI();
+        $user = $userAPI->userLoad();
+        if(!$user->uid) {
+            $helper = new Helper();
+            $user_info = new \stdClass();
+            $user_info->openid = $helper->uuidGenerator();
+            $userAPI->userRegister($user_info);
         }
-        return NULL;
+        echo "openid: {$user->openid}登陆成功！";
+        exit;
     }
+
 }
