@@ -20,8 +20,9 @@ $quota = [
 
 foreach ($quota as $sk => $sv) 
 {
+	$fid = insertQuota($sk, 0, 0);
 	foreach ($sv as $dk => $dv) {
-		$res = insertQuota($sk, $dk, $dv);
+		$res = insertQuota($dk, $dv, $fid);
 		if($res) {
 			echo "{$sk} {$dk} 场次名额设置成功!\n";
 		} else {
@@ -30,17 +31,17 @@ foreach ($quota as $sk => $sv)
 	}
 }	
 
-function insertQuota($shop, $date, $quota)
+function insertQuota($name, $num, $fid)
 {
 	$quotas = new \stdClass();
-	$quotas->shop = $shop;
-	$quotas->date = $date;
-	$quotas->num = $quota;
+	$quotas->name = $name;
+	$quotas->num = $num;
+	$quotas->fid = $fid;
 	$quotas->created = date('Y-m-d H:i:s');
 	$quotas->updated = date('Y-m-d H:i:s');
 	$helper = new Helper();
 	$qid = $helper->insertTable('quota', $quotas);
 	if($qid)
-		return TRUE;
+		return $qid;
 	return FALSE;
 }

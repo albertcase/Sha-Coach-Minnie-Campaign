@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.1)
 # Database: coach_minnie_campaign
-# Generation Time: 2018-05-02 08:48:04 +0000
+# Generation Time: 2018-05-02 09:51:49 +0000
 # ************************************************************
 
 
@@ -61,9 +61,9 @@ DROP TABLE IF EXISTS `quota`;
 
 CREATE TABLE `quota` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `shop` varchar(255) DEFAULT NULL,
-  `date` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `num` varchar(255) DEFAULT '0',
+  `fid` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
