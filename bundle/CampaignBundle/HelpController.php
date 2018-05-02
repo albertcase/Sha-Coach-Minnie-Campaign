@@ -28,23 +28,49 @@ class HelpController extends Controller
         return NULL;
 	}
 
-	// 查找场次
-    public function findQuota()
+	// 查找店铺
+    public function findShopQuota()
     {
-        $sql = "SELECT `id`, `shop`, `date`, `num` FROM `quota`";
+        $sql = "SELECT `id`, `name` FROM `quota` WHERE fid=0";
         $query = $this->_pdo->prepare($sql);    
         $query->execute();
         $row = $query->fetchAll(\PDO::FETCH_ASSOC);
         if($row) {
       		return $row;
         }
-        return NULL;
+        return [];
+    }
+
+    // 查找店铺
+    public function findQuotaById($id)
+    {
+        $sql = "SELECT `id`, `name`, `fid` FROM `quota` WHERE id = :id";
+        $query = $this->_pdo->prepare($sql);    
+        $query->execute([':id' => $id]);
+        $row = $query->fetch(\PDO::FETCH_ASSOC);
+        if($row) {
+      		return (object) $row;
+        }
+        return [];
+    }
+
+    // 查找时间段
+    public function findDateQuota($fid)
+    {
+        $sql = "SELECT `id`, `name` FROM `quota` WHERE fid=:fid";
+        $query = $this->_pdo->prepare($sql);    
+        $query->execute([':fid' => $fid]);
+        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
+        if($row) {
+      		return $row;
+        }
+        return [];
     }
 
     // 查找场次
     public function findQuotaByQid($qid)
     {
-        $sql = "SELECT `id`, `shop`, `date`, `num` FROM `quota` WHERE `id` = :id";
+        $sql = "SELECT `id`, `name`, `num` FROM `quota` WHERE `id` = :id";
         $query = $this->_pdo->prepare($sql);    
         $query->execute([':id' => $qid]);
         $row = $query->fetch(\PDO::FETCH_ASSOC);
@@ -87,7 +113,19 @@ class HelpController extends Controller
         $query->execute([':openid' => $openid]);
         $row = $query->fetchAll(\PDO::FETCH_ASSOC);
         if($row) {
-      		return $row;
+      		return 1;
+        }
+        return 0;
+    }
+
+    public function findSubmitByOpenid($openid)
+    {
+    	$sql = "SELECT `id`, `qid`, `name`, `phone` FROM `submit` WHERE `openid` = :openid";
+        $query = $this->_pdo->prepare($sql);    
+        $query->execute([':openid' => $openid]);
+        $row = $query->fetch(\PDO::FETCH_ASSOC);
+        if($row) {
+      		return (object) $row;
         }
         return NULL;
     }

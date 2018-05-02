@@ -17,6 +17,9 @@ class ApiController extends Controller
     	global $user;
         parent::__construct();
         $this->_pdo = PDO::getInstance();
+        if(!$user->uid) {
+            $this->statusPrint('100', 'access deny!');
+        } 
     }
 
     // 查询预约场次列表
@@ -24,10 +27,16 @@ class ApiController extends Controller
     {
         $data = [];
         $help = new HelpController();
-        $quotas = $help->findQuota();
-        if($quotas) 
-            $data = $quotas;
-        $this->dataPrint($data);
+        $shopQuota = $help->findShopQuota();
+        $quota = [];
+        if(!empty($shopQuota)) {
+            foreach ($shopQuota as $k => $v) {
+                $quota[$k]['shop'] = $v['name'];
+                $dateQuota = $help->findDateQuota($v['id']);
+                $quota[$k]['date'] = $dateQuota;
+            }
+        }
+        $this->dataPrint($quota);
     }
 
     // 预约提交
