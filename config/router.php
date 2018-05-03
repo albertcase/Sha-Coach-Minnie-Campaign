@@ -18,4 +18,3 @@ $routers['/qrcode'] = array('CampaignBundle\Page', 'qrcode'); //二维码页面
 //API
 $routers['/api/quota'] = array('CampaignBundle\Api', 'quota'); //预约数量
 $routers['/api/submit'] = array('CampaignBundle\Api', 'submit'); //预约
-$routers['/api/login'] = array('CampaignBundle\Api', 'login'); //模拟登陆

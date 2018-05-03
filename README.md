@@ -13,7 +13,7 @@ db: db/coach_minnie_campaign.sql
 
 ```
 1./template/old_apply.tpl/php:已经导入用户的预约页面模版，
-2.／template/apply.tpl.php: 未导入用户的预约页面
+2./template/apply.tpl.php: 未导入用户的预约页面
 ```
 ---
 

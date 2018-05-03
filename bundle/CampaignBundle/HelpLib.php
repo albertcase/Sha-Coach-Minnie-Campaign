@@ -6,12 +6,11 @@ use Core\Controller;
 use Lib\PDO;
 use Lib\Helper;
 
-class HelpController extends Controller
+class HelpLib
 {	
 	private $_pdo;
     public function __construct() 
     {
-        parent::__construct();
         $this->_pdo = PDO::getInstance();
     }
 

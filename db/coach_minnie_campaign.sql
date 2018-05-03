@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.1)
 # Database: coach_minnie_campaign
-# Generation Time: 2018-05-02 09:51:49 +0000
+# Generation Time: 2018-05-03 08:39:33 +0000
 # ************************************************************
 
 
@@ -98,7 +98,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `openid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `nickname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `nickname` blob,
   `sex` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `province` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
