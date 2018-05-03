@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-<!-- <?php 
-    // echo "已经导入用户的预约页面\n";
-    // echo "预约状态: {$isAplly}";
-    // echo "<pre>";
-    // var_dump($quota);exit;
-=======
-<?php 
-    echo "已经导入用户的预约页面\n";
-    echo "预约状态: {$isAplly}";
-    echo "<pre>";
-    var_dump($quota);
-?>
->>>>>>> cec9928bfe164883e80895499b9b725844d243a5
-
-
-?>
- -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,6 +184,7 @@
                 var timeArr = queryData[b].date;
                 if(queryData[b].shop == val){
                     for(var a = 0; a < timeArr.length; a++){
+                        console.log(timeArr);
                         dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
                     }
                     selectDate.innerHTML = dateHTML.join('');
