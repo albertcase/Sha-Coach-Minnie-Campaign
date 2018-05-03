@@ -29,13 +29,13 @@ class PageController extends Controller
 		$shopQuota = $help->findShopQuota(); //查找店铺
 		$quota = []; 
 		if(!empty($shopQuota)) {
-			foreach ($shopQuota as $k => $v) { //通过店铺查找时间段场次
-				$quota[$k]['shop'] = $v['name'];
-				$dateQuota = $help->findDateQuota($v['id']);
-				foreach ($dateQuota as $k => $v) { //查找场次的余额
-					$dateQuota[$k]['has_quota'] = $help->hasQuota($v['id']);
+			foreach ($shopQuota as $sk => $sv) { //通过店铺查找时间段场次
+				$quota[$sk]['shop'] = $sv['name'];
+				$dateQuota = $help->findDateQuota($sv['id']);
+				foreach ($dateQuota as $dk => $dv) { //查找场次的余额
+					$dateQuota[$dk]['has_quota'] = $help->hasQuota($dv['id']);
 				}
-				$quota[$k]['date'] = $dateQuota;
+				$quota[$sk]['date'] = $dateQuota;
 			}
 		}
 		$isAplly = $help->isSubmit($user->openid);
