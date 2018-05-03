@@ -6,7 +6,7 @@ use Core\Controller;
 use Lib\PDO;
 use Lib\userAPI;
 use Lib\Helper;
-use CampaignBundle\HelpController;
+use CampaignBundle\HelpLib;
 
 class ApiController extends Controller
 {
@@ -26,7 +26,7 @@ class ApiController extends Controller
     public function quotaAction()
     {
         $data = [];
-        $help = new HelpController();
+        $help = new HelpLib();
         $shopQuota = $help->findShopQuota();
         $quota = [];
         if(!empty($shopQuota)) {
@@ -47,7 +47,7 @@ class ApiController extends Controller
     public function submitAction()
     {
         global $user;
-        $help = new HelpController();
+        $help = new HelpLib();
 
         $jsonData = file_get_contents("php://input"); 
         $apiData = json_decode($jsonData);
@@ -76,21 +76,4 @@ class ApiController extends Controller
 
         $this->statusPrint('10', '预约成功！');
     }
-
-    // 模拟登陆
-    public function loginAction()
-    {
-        global $user;
-        $userAPI = new UserAPI();
-        $user = $userAPI->userLoad();
-        if(!$user->uid) {
-            $helper = new Helper();
-            $user_info = new \stdClass();
-            $user_info->openid = $helper->uuidGenerator();
-            $userAPI->userRegister($user_info);
-        }
-        echo "openid: {$user->openid}登陆成功！";
-        exit;
-    }
-
 }

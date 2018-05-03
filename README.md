@@ -13,7 +13,7 @@ db: db/coach_minnie_campaign.sql
 
 ```
 1./template/old_apply.tpl/php:已经导入用户的预约页面模版，
-2.／template/apply.tpl.php: 未导入用户的预约页面
+2./template/apply.tpl.php: 未导入用户的预约页面
 ```
 ---
 
@@ -29,6 +29,8 @@ $quota：场次数组
 ###3. http://127.0.0.1:9222/wechat/coach/callback?openid=123  模拟登陆
 
 ###4. /clear: 清除用户缓存
+
+###5. jssdk: http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat
 
 ---
 

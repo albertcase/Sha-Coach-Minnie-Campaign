@@ -24,7 +24,7 @@ define("NOWTIME", date('Y-m-d H:i:s'));
 define("AHEADTIME", '1000');
 
 define("NONCESTR", '?????');
-define("COACH_AUTH_URL", '?????'); 
+define("COACH_AUTH_URL", 'http://coach.samesamechina.com/api/wechat/oauth/auth/4ad2a818-06c7-4e4b-a85b-5784e0e15a91'); 
 
 //Redis config info
 define("REDIS_HOST", '127.0.0.1');

@@ -37,6 +37,7 @@ class CoachController extends Controller
 		if($data->code = 200) {
 			$userAPI = new UserAPI();
 			$userAPI->userSave((Object)$data->data);
+			$this->statusPrint('success');
 		} else {
 			$this->statusPrint('error');
 		}

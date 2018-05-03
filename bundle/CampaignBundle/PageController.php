@@ -4,7 +4,7 @@ namespace CampaignBundle;
 
 use Core\Controller;
 use Lib\WechatAPI;
-use CampaignBundle\HelpController;
+use CampaignBundle\HelpLib;
 
 class PageController extends Controller
 {
@@ -24,7 +24,7 @@ class PageController extends Controller
 	public function applyAction() 
 	{
 		global $user;
-		$help = new HelpController();
+		$help = new HelpLib();
 		$isOld = $help->isOldOpenid($user->openid); //是否已经导入用户
 		$shopQuota = $help->findShopQuota(); //查找店铺
 		$quota = []; 
@@ -32,10 +32,14 @@ class PageController extends Controller
 			foreach ($shopQuota as $k => $v) { //通过店铺查找时间段场次
 				$quota[$k]['shop'] = $v['name'];
 				$dateQuota = $help->findDateQuota($v['id']);
+				foreach ($dateQuota as $k => $v) { //查找场次的余额
+					$dateQuota[$k]['has_quota'] = $help->hasQuota($v['id']);
+				}
 				$quota[$k]['date'] = $dateQuota;
 			}
 		}
-
+		echo "<pre>";
+		var_dump($quota);exit;
 		$isAplly = $help->isSubmit($user->openid);
 		if($isOld) {
 			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly]);
@@ -49,7 +53,7 @@ class PageController extends Controller
 	{
 		global $user;
 		$applyRes = new \stdClass(); //预约结果
-		$help = new HelpController();
+		$help = new HelpLib();
 		$submit = $help->findSubmitByOpenid($user->openid);
 		if(!$submit) {
 			return $this->render('qrcode', ['applys' => ['status' => 0, 'msg' => '抱歉，你未预约！']]);

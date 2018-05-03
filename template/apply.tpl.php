@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 <!-- <?php 
     // echo "已经导入用户的预约页面\n";
     // echo "预约状态: {$isAplly}";
     // echo "<pre>";
     // var_dump($quota);exit;
+=======
+<?php 
+    echo "已经导入用户的预约页面\n";
+    echo "预约状态: {$isAplly}";
+    echo "<pre>";
+    var_dump($quota);
+?>
+>>>>>>> cec9928bfe164883e80895499b9b725844d243a5
 
 
 ?>
