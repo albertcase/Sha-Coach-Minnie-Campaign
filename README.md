@@ -30,6 +30,8 @@ $quota：场次数组
 
 ###4. /clear: 清除用户缓存
 
+###5. jssdk: http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat
+
 ---
 
 ###预约接口
