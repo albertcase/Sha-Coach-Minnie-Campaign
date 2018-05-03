@@ -38,8 +38,6 @@ class PageController extends Controller
 				$quota[$k]['date'] = $dateQuota;
 			}
 		}
-		echo "<pre>";
-		var_dump($quota);exit;
 		$isAplly = $help->isSubmit($user->openid);
 		if($isOld) {
 			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly]);
