@@ -111,7 +111,7 @@ class UserAPI extends Base {
     $res = $helper->saveTable('user', $userinfo, 'openid');
     if($res) {
       if($res === true)
-        return $this->findUserByOpenid($userinfo->$openid);
+        return $this->findUserByOpenid($userinfo->openid);
       else
         return $this->findUserByUid($res);
     }
