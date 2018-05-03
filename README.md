@@ -9,7 +9,14 @@ db: db/coach_minnie_campaign.sql
 
 **url:** : 
 
-###1. /apply ：预约页面 [1./template/old_apply.tpl/php:已经导入用户的预约页面模版，2.／template/apply.tpl.php: 未导入用户的预约页面]
+###1. /apply ：预约页面 
+
+```
+1./template/old_apply.tpl/php:已经导入用户的预约页面模版，
+2.／template/apply.tpl.php: 未导入用户的预约页面
+```
+---
+
 ```
 页面值：
 $isAplly [1, 0] 1:已经预约 0:未预约
@@ -19,10 +26,9 @@ $quota：场次数组
 
 ###2. /qrcode: 预约结果页面（二维码页面）
 
+###3. http://127.0.0.1:9222/wechat/coach/callback?openid=123  模拟登陆
 
-###3. /api/login: 模拟登陆（未加入coach授权之前作为测试用，配置好域名之后废弃）
-
-###4. /clear: 清楚用户缓存
+###4. /clear: 清除用户缓存
 
 ---
 
