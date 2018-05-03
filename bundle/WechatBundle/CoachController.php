@@ -19,8 +19,10 @@ class CoachController extends Controller
 			$openid = $request->query->get('openid');
 			$user = $userAPI->userLogin($openid);
 			if(!$user) {
-				$this->statusPrint('error');
-				//$userAPI->userRegister($openid);
+				// $this->statusPrint('error');
+				$userinfo = new \stdClass();
+				$userinfo->openid = $openid;
+				$userAPI->userRegister($userinfo);
 			}
 			$this->redirect($url);
 		} else {
