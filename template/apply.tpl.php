@@ -1,11 +1,12 @@
-<?php 
-    echo "已经导入用户的预约页面\n";
-    echo "预约状态: {$isAplly}";
-    echo "<pre>";
-    var_dump($quota);exit;
+<!-- <?php 
+    // echo "已经导入用户的预约页面\n";
+    // echo "预约状态: {$isAplly}";
+    // echo "<pre>";
+    // var_dump($quota);exit;
+
+
 ?>
-
-
+ -->
 
 
 <!DOCTYPE html>
@@ -15,6 +16,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="yes" name="apple-touch-fullscreen">
     <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Coach蔻驰</title>
 </head>
 <link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
@@ -55,19 +57,19 @@
                  </li>
                  <li class="selectArr">
                      <select name="shop" class="select-shop">
-                         <option>店铺 / SHOP</option>
+                         <!-- <option>店铺 / SHOP</option>
                          <option>上海</option>
                          <option>北京</option>
-                         <option>深圳</option>
+                         <option>深圳</option> -->
                      </select>
                      <input type="text" name="shop" class="form-shop" placeholder="店铺 / SHOP">
                  </li>
                  <li class="selectArr">
-                    <select name="shop" class="select-date">
+                    <select name="date" class="select-date" disabled>
                          <option>日期 / DATE</option>
-                         <option>2017</option>
+                         <!-- <option>2017</option>
                          <option>2016</option>
-                         <option>2015</option>
+                         <option>2015</option> -->
                      </select>
                      <input type="text" name="date" class="form-date" placeholder="日期 / DATE">
                  </li>
@@ -87,6 +89,7 @@
 </section>
 
 <script type="text/javascript">
+    var queryData = <?php echo json_encode($quota);?>;
     var int, count = 10, countdownEl = document.querySelector('.countdown');
 
 
@@ -109,8 +112,8 @@
     }
 
 
-    function CheckForm(el){
-        var ele = document.getElementById(el);
+    function CheckForm(){
+        var ele = document;
         var reg = /^1\d{10}$/;
         var formVal = {
             name: ele.querySelector('.form-name').value,
@@ -131,29 +134,15 @@
             // console.log(formVal);
             countdownEl.innerHTML = "(10s)";
             int = self.setInterval("countdown(submitForm)",1000);
-            return formVal;
+            return { "qid":formVal.date, "name":formVal.name, "phone":formVal.tel };
         }
     }
 
     var reserveBtn = document.getElementById('reserve-btn');
     reserveBtn.addEventListener("click", function(){
-        CheckForm('form-1');
+        CheckForm();
     }, false);
 
-
-
-
-    var selectShop = document.querySelector('.select-shop');
-    selectShop.addEventListener('change', function(){
-        document.querySelector('.form-shop').value = selectShop.value;
-        // console.log(data.value);
-    })
-
-    var selectData = document.querySelector('.select-date');
-    selectData.addEventListener('change', function(){
-        document.querySelector('.form-date').value = selectData.value;
-        // console.log(data.value);
-    })
 
 
     function countdown(fn){
@@ -170,7 +159,8 @@
 
     function submitForm(){
         countdownEl.innerHTML = "";
-        console.log('success!');
+        ajax('POST', '/api/submit', CheckForm);
+        
     }
 
 
@@ -187,6 +177,80 @@
     }, true)
 
 
+
+
+    function DataBox(){
+        this.getShop = function(){
+            var shopHTML = ['<option>店铺 / SHOP</option>'], selectShop = document.querySelector('.select-shop');
+            for(var i = 0; i < queryData.length; i++){
+                shopHTML.push('<option>'+ queryData[i].shop +'</option>');
+            }
+            selectShop.innerHTML = shopHTML.join('');
+        }
+
+        this.getDate = function(val){
+
+            var dateHTML = ['日期 / DATE'], selectDate = document.querySelector('.select-date');
+            for(var b = 0; b < queryData.length; b++){
+                var timeArr = queryData[b].date;
+                if(queryData[b].shop == val){
+                    for(var a = 0; a < timeArr.length; a++){
+                        dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
+                    }
+                    selectDate.innerHTML = dateHTML.join('');
+                };
+            }
+
+
+            
+            
+        }
+    }
+
+
+    var databox = new DataBox()
+    databox.getShop();
+
+
+
+    var selectShop = document.querySelector('.select-shop');
+    selectShop.addEventListener('change', function(){
+        document.querySelector('.form-shop').value = selectShop.value;
+        if(selectShop.value && selectShop.value != "<option>店铺 / SHOP</option>"){
+            document.querySelector('.select-date').removeAttribute('disabled');
+            databox.getDate(selectShop.value);
+        }
+        // console.log(data.value);
+    })
+
+    var selectData = document.querySelector('.select-date');
+    selectData.addEventListener('change', function(){
+        var index = selectData.selectedIndex;
+        var selectValue = selectData.options[index].value;
+        var selectText = selectData.options[index].text;
+        document.querySelector('.form-date').value = selectText;
+        // console.log(selectText ,selectValue);
+    })
+
+
+
+    function ajax(method, url, data) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    console.log('success!');
+                    console.log(request.responseText);
+                } else {
+                    console.log(request.status);
+                }
+            }
+        };
+        request.open(method, url);
+        request.send(data);
+    }
+
+    
 
 
 
