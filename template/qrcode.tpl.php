@@ -1,10 +1,3 @@
-<?php 
-	echo "预约结果页面";
-	echo "<pre>";
-	var_dump($applys);
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,15 +19,20 @@
     <div class="form-reserve clearfix">
         <div class="logo-brand"></div>   
 
-
         <div class="reserve-success">
-            <div class="success-theme">
-                预约成功
-            </div>
-            <div class="success-text">
-                亲爱的XXX <br />
-                X月X日XX时，XXX店铺期待您的莅临！
-            </div>
+            <?php if($applys['status'] == 1) { ?>
+                <div class="success-theme">
+                    预约成功
+                </div>
+                <div class="success-text">
+                    亲爱的<?php echo $applys['name'];?> <br />
+                    <?php echo $applys['date'];?>，<?php echo $applys['shop'];?>店铺期待您的莅临！
+                </div>
+            <?php } else {?>
+                <div class="success-text"> 预约活动已结束！</div>
+            <?php }?>
+
+            
         </div>
         
     </div>

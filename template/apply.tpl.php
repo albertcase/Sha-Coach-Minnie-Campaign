@@ -12,8 +12,13 @@
 <!-- 引入适配方案-->
 <script src="/web/lib/lib-flexible/flexible.js"></script>
 <body>
+
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
+    <?php if($isAplly == 1) { ?>
+        <div class="applyStatus">您已预约</div>
+    <?php }?>
+    
 
     <div class="rule-pup">
         <div class="rule-con">
@@ -66,10 +71,16 @@
              <div class="pact">
                  <a href="javascript:void(0)" class="pact-link"></a>
              </div>
-
-             <a href="javascript:void(0);" class="btn" id="reserve-btn">
-                 一键预约 <span class="countdown"></span>
-             </a>
+            
+            <?php if($isAplly == 1) { ?>
+                 <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
+                     一键预约 <span class="countdown"></span>
+                 </a>
+             <?php } else {?>
+                <a href="javascript:void(0);" class="btn" id="reserve-btn">
+                     一键预约 <span class="countdown"></span>
+                 </a>
+             <?php }?>
         </div>
 
 
@@ -78,8 +89,14 @@
 </section>
 
 <script type="text/javascript">
+
     var queryData = <?php echo json_encode($quota);?>;
-    var int, count = 10, countdownEl = document.querySelector('.countdown');
+    var isAplly = <?php echo json_encode($isAplly);?>;
+    var int, count = 10, countdownEl = document.querySelector('.countdown'), subdate;
+
+    if(isAplly){
+        formErrorTips('您已预约!');
+    }
 
 
     function formErrorTips(alertNodeContext){
@@ -108,7 +125,7 @@
             name: ele.querySelector('.form-name').value,
             tel: ele.querySelector('.form-tel').value,
             shop: ele.querySelector('.form-shop').value,
-            date: ele.querySelector('.form-date').value
+            date: ele.querySelector('.select-date').value
         }
 
         if(!formVal.name){
@@ -123,13 +140,17 @@
             // console.log(formVal);
             countdownEl.innerHTML = "(10s)";
             int = self.setInterval("countdown(submitForm)",1000);
-            return { "qid":formVal.date, "name":formVal.name, "phone":formVal.tel };
+            subdate = { qid: formVal.date, name: formVal.name, phone: formVal.tel };
         }
     }
 
     var reserveBtn = document.getElementById('reserve-btn');
     reserveBtn.addEventListener("click", function(){
-        CheckForm();
+        if(this.className.indexOf('disabled') < 0){
+            CheckForm();
+        }else{
+            formErrorTips('您已预约!');
+        }
     }, false);
 
 
@@ -148,8 +169,7 @@
 
     function submitForm(){
         countdownEl.innerHTML = "";
-        ajax('POST', '/api/submit', CheckForm);
-        
+        ajax('POST', '/api/submit', subdate);
     }
 
 
@@ -179,13 +199,14 @@
 
         this.getDate = function(val){
 
-            var dateHTML = ['日期 / DATE'], selectDate = document.querySelector('.select-date');
+            var dateHTML = ['<option>日期 / DATE</option>'], selectDate = document.querySelector('.select-date');
             for(var b = 0; b < queryData.length; b++){
                 var timeArr = queryData[b].date;
                 if(queryData[b].shop == val){
                     for(var a = 0; a < timeArr.length; a++){
-                        console.log(timeArr);
-                        dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
+                        if(timeArr[a].has_quota){
+                            dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
+                        }  
                     }
                     selectDate.innerHTML = dateHTML.join('');
                 };
@@ -206,9 +227,13 @@
     var selectShop = document.querySelector('.select-shop');
     selectShop.addEventListener('change', function(){
         document.querySelector('.form-shop').value = selectShop.value;
-        if(selectShop.value && selectShop.value != "<option>店铺 / SHOP</option>"){
+        if(selectShop.value && selectShop.value != "店铺 / SHOP"){
             document.querySelector('.select-date').removeAttribute('disabled');
             databox.getDate(selectShop.value);
+        }else{
+            document.querySelector('.select-date').innerHTML = "";
+            document.querySelector('.form-date').value = "";
+            document.querySelector('.form-shop').value = "";
         }
         // console.log(data.value);
     })
@@ -218,7 +243,12 @@
         var index = selectData.selectedIndex;
         var selectValue = selectData.options[index].value;
         var selectText = selectData.options[index].text;
-        document.querySelector('.form-date').value = selectText;
+        if(selectText == "日期 / DATE"){
+            document.querySelector('.form-date').value = "";
+        }else{
+            document.querySelector('.form-date').value = selectText;
+        }
+        
         // console.log(selectText ,selectValue);
     })
 
@@ -226,20 +256,21 @@
 
     function ajax(method, url, data) {
         var request = new XMLHttpRequest();
+        var data = JSON.stringify(data);
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
                 if (request.status === 200) {
-                    console.log('success!');
-                    console.log(request.responseText);
+                    var result = JSON.parse(request.responseText);
+                    formErrorTips(result.msg);
                 } else {
-                    console.log(request.status);
+                    formErrorTips(request.status);
                 }
             }
         };
         request.open(method, url);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         request.send(data);
     }
-
     
 
 
