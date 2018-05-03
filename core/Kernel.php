@@ -39,6 +39,7 @@ class Kernel
 		}
 
 		//response
+		$response = new Response();
 		$event = new ResponseEvent($request, $response);
 		$this->dispatcher->dispatch(KernelEvents::RESPONSE, $event);
 		$response->send();
