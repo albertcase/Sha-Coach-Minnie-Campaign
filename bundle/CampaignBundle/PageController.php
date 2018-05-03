@@ -32,10 +32,14 @@ class PageController extends Controller
 			foreach ($shopQuota as $k => $v) { //通过店铺查找时间段场次
 				$quota[$k]['shop'] = $v['name'];
 				$dateQuota = $help->findDateQuota($v['id']);
+				foreach ($dateQuota as $k => $v) { //查找场次的余额
+					$dateQuota[$k]['has_quota'] = $help->hasQuota($v['id']);
+				}
 				$quota[$k]['date'] = $dateQuota;
 			}
 		}
-
+		echo "<pre>";
+		var_dump($quota);exit;
 		$isAplly = $help->isSubmit($user->openid);
 		if($isOld) {
 			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly]);
