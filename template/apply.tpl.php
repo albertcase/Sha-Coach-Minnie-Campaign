@@ -1,8 +1,8 @@
 <?php 
-	echo "已经导入用户的预约页面\n";
-	echo "预约状态: {$isAplly}";
-	echo "<pre>";
-	var_dump($quota);exit;
+    echo "已经导入用户的预约页面\n";
+    echo "预约状态: {$isAplly}";
+    echo "<pre>";
+    var_dump($quota);exit;
 ?>
 
 
@@ -17,9 +17,9 @@
     <meta content="telephone=no,email=no" name="format-detection">
     <title>Coach蔻驰</title>
 </head>
-<link href = "/build/css/style.css" rel="stylesheet" type="text/css">
+<link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
 <!-- 引入适配方案-->
-<script src="/lib/lib-flexible/flexible.js"></script>
+<script src="/web/lib/lib-flexible/flexible.js"></script>
 <body>
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
@@ -82,33 +82,6 @@
         </div>
 
 
-
-        <!-- <div class="reserve-success">
-            <div class="success-theme">
-                预约成功
-            </div>
-            <div class="success-text">
-                亲爱的XXX <br />
-                X月X日XX时，XXX店铺期待您的莅临！
-            </div>
-        </div> -->
-
-
-        <!-- <div class="form-table" id="form-2">
-            <ul>
-                 <li>
-                     <input type="text" class="form-shop" name="shop" placeholder="店铺 / SHOP">
-                 </li>
-                 <li>
-                     <input type="text" class="form-date" name="date" placeholder="日期 / DATE">
-                 </li>
-             </ul> 
-
-             <a href="javascript:void(0);" class="btn">
-                 一键预约
-             </a>
-        </div> -->
-        
     </div>
 
 </section>
