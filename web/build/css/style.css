@@ -475,12 +475,11 @@ textarea::-webkit-input-placeholder {
         text-align: center;
         margin: 0.4rem auto;
         position: relative; }
-        [data-page="index"] .form-reserve ul li.selectArr:after {
+        [data-page="index"] .form-reserve ul li.selectArr span {
           width: 0.33333rem;
           height: 0.17333rem;
           background: url("../img/arr-down.png") center no-repeat;
           background-size: contain;
-          content: "";
           display: block;
           position: absolute;
           right: 0.4rem;
@@ -496,6 +495,7 @@ textarea::-webkit-input-placeholder {
           opacity: 0; }
         [data-page="index"] .form-reserve ul li input {
           width: 90%;
+          height: 100%;
           text-align: left;
           font-size: 16px; }
           [data-dpr="2"] [data-page="index"] .form-reserve ul li input {

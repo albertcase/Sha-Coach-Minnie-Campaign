@@ -48,13 +48,14 @@
         <div class="form-table" id="form-1">
             <ul>
                  <li>
-                     <input type="text" name="name" class="form-name" placeholder="姓名 / NAME">
+                     <input type="text" name="name" class="form-blur form-name" placeholder="姓名 / NAME">
                  </li>
                  <li>
-                     <input type="tel" maxlength="11" name="tel" class="form-tel" placeholder="手机 / MOBIlE PHONE">
+                     <input type="tel" maxlength="11" name="tel" class="form-blur form-tel" placeholder="手机 / MOBIlE PHONE">
                  </li>
                  <li class="selectArr">
-                     <select name="shop" class="select-shop">
+                     <span></span>
+                     <select name="shop" class="form-blur select-shop">
                          <!-- <option>店铺 / SHOP</option>
                          <option>上海</option>
                          <option>北京</option>
@@ -63,7 +64,8 @@
                      <input type="text" name="shop" class="form-shop" placeholder="店铺 / SHOP">
                  </li>
                  <li class="selectArr">
-                    <select name="date" class="select-date" disabled>
+                    <span></span>
+                    <select name="date" class="form-blur select-date" disabled>
                          <option>日期 / DATE</option>
                          <!-- <option>2017</option>
                          <option>2016</option>
@@ -94,10 +96,11 @@
 
 <script type="text/javascript">
 
-    var queryData = <?php echo json_encode($quota);?>;
-    var isAplly = <?php echo json_encode($isAplly);?>;
+    var queryData = <?php echo json_encode($quota);?>;  // 店铺和日期全部数据
+    var isAplly = <?php echo json_encode($isAplly);?>;  // 是否已经预约  1.已经预约， 0.未预约
     var int, count = 10, countdownEl = document.querySelector('.countdown'), subdate;
 
+    // 状态提示
     function formErrorTips(alertNodeContext){
         var alertInt,
             alertEvent = document.querySelectorAll('.alertNode');
@@ -117,6 +120,7 @@
     }
 
 
+    // 点击提交按钮表单各项检测已经数据接口提交
     function CheckForm(){
         var ele = document;
         var reg = /^1\d{10}$/;
@@ -151,7 +155,7 @@
 
 
 
-
+    // 倒计时
     var cdStatus = 0;
     function countdown(){
         cdStatus = 1;
@@ -171,7 +175,7 @@
     
 
 
-
+    // 遍历店铺或日期数据
     function DataBox(){
         this.getShop = function(){
             var shopHTML = ['<option>店铺 / SHOP</option>'], selectShop = document.querySelector('.select-shop');
@@ -203,16 +207,17 @@
     }
 
 
-    var databox = new DataBox()
+    var databox = new DataBox();
     databox.getShop();
 
 
-
+    // 店铺
     var selectShop = document.querySelector('.select-shop');
     selectShop.addEventListener('change', function(){
         document.querySelector('.form-shop').value = selectShop.value;
         if(selectShop.value && selectShop.value != "店铺 / SHOP"){
             document.querySelector('.select-date').removeAttribute('disabled');
+            document.querySelector('.form-date').value = "";
             databox.getDate(selectShop.value);
         }else{
             document.querySelector('.select-date').innerHTML = "";
@@ -222,6 +227,8 @@
         // console.log(data.value);
     })
 
+
+    // 日期
     var selectData = document.querySelector('.select-date');
     selectData.addEventListener('change', function(){
         var index = selectData.selectedIndex;
@@ -299,37 +306,17 @@
 
 
 
+    // 表单输入框失去焦点事件监测
 
-    document.querySelector('.form-name').addEventListener('blur', function(){
-        if(cdStatus) return false;
-        clearInterval(int);
-        int = null;
-        check(); 
-    })
-
-    document.querySelector('.form-tel').addEventListener('blur', function(){
-        if(cdStatus) return false;
-        clearInterval(int);
-        int = null;
-        check();
-    })
-
-    document.querySelector('.select-shop').addEventListener('blur', function(){
-        if(cdStatus) return false;
-        clearInterval(int);
-        int = null;
-        check();
-    })
-
-    document.querySelector('.select-date').addEventListener('blur', function(){
-        if(cdStatus) return false;
-        clearInterval(int);
-        int = null;
-        check();
-    })
-
-
-
+    var ftli = document.querySelectorAll('.form-blur');
+    for (var i = 0; i < ftli.length; i++){
+        ftli[i].addEventListener('blur', function(evt){
+            if(cdStatus) return false;
+            clearInterval(int);
+            int = null;
+            check(); 
+        })
+    }
 
 
 

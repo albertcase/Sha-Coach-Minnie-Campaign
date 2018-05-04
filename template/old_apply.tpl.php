@@ -31,15 +31,17 @@
         <div class="form-table">
             <ul>
                  <li class="selectArr">
-                     <select name="shop" class="select-shop">
+                    <span></span>
+                    <select name="shop" class="select-shop">
                          <!-- <option>店铺 / SHOP</option>
                          <option>上海</option>
                          <option>北京</option>
                          <option>深圳</option> -->
-                     </select>
-                     <input type="text" name="shop" class="form-shop" placeholder="店铺 / SHOP">
+                    </select>
+                    <input type="text" name="shop" class="form-shop" placeholder="店铺 / SHOP">
                  </li>
                  <li class="selectArr">
+                    <span></span>
                     <select name="date" class="select-date" disabled>
                          <option>日期 / DATE</option>
                          <!-- <option>2017</option>
@@ -144,7 +146,7 @@
             formErrorTips('请选择您需要预约的日期！');
         }else{
             // console.log(formVal);
-            submitForm({ qid: formVal.date, name: formVal.name, phone: formVal.tel });
+            submitForm({ qid: formVal.date });
         }
     }
 
@@ -157,15 +159,23 @@
 
 
 
-
     var selectShop = document.querySelector('.select-shop');
     selectShop.addEventListener('change', function(){
         document.querySelector('.form-shop').value = selectShop.value;
-        if(selectShop.value && selectShop.value != "<option>店铺 / SHOP</option>"){
+        if(selectShop.value && selectShop.value != "店铺 / SHOP"){
             document.querySelector('.select-date').removeAttribute('disabled');
+            document.querySelector('.form-date').value = "";
             databox.getDate(selectShop.value);
+        }else{
+            document.querySelector('.select-date').innerHTML = "";
+            document.querySelector('.form-date').value = "";
+            document.querySelector('.form-shop').value = "";
         }
+        // console.log(data.value);
     })
+
+
+
 
     var selectData = document.querySelector('.select-date');
     selectData.addEventListener('change', function(){

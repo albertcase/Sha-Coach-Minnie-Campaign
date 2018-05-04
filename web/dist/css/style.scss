@@ -94,12 +94,12 @@ html, body {
                 text-align: center;
                 margin: rem(30) auto;
                 position: relative;
-                &.selectArr:after{
+                &.selectArr span{
                     width: rem(25);
                     height: rem(13);
                     background: url('../img/arr-down.png') center no-repeat;
                     background-size: contain;
-                    content: "";
+                    // content: "";
                     display: block;
                     position: absolute;
                     right: rem(30);
@@ -117,6 +117,7 @@ html, body {
                 }
                 input{
                     width: 90%;
+                    height: 100%;
                     text-align: left;
                     @include fontDpr(32);
                 }
