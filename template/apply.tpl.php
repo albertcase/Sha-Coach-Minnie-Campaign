@@ -12,12 +12,16 @@
 <!-- 引入适配方案-->
 <script src="/web/lib/lib-flexible/flexible.js"></script>
 <body>
-
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
-    <?php if($isAplly == 1) { ?>
-        <div class="applyStatus">您已成功预约!</div>
+    <?php if($isAllowApply) {?> 
+        <?php if($isAplly == 1) { ?>
+            <div class="applyStatus">您已成功预约!</div>
+        <?php }?>
+    <?php }else { ?>
+        <div class="applyStatus">活动已经结束!</div>
     <?php }?>
+    
     
 
     <div class="rule-pup">
@@ -93,11 +97,6 @@
     var queryData = <?php echo json_encode($quota);?>;
     var isAplly = <?php echo json_encode($isAplly);?>;
     var int, count = 10, countdownEl = document.querySelector('.countdown'), subdate;
-
-    if(isAplly){
-        formErrorTips('您已预约!');
-    }
-
 
     function formErrorTips(alertNodeContext){
         var alertInt,
