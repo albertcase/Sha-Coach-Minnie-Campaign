@@ -69,7 +69,7 @@
     var isAplly = <?php echo json_encode($isAplly);?>;
 
     if(isAplly){
-        formErrorTips('您已预约!');
+        formErrorTips('您已成功预约!');
     }
 
     function DataBox(){
@@ -187,6 +187,7 @@
                 if (request.status === 200) {
                     var result = JSON.parse(request.responseText);
                     formErrorTips(result.msg);
+                    window.location.reload()
                 } else {
                     formErrorTips(request.status);
                 }

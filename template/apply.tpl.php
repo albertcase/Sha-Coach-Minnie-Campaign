@@ -16,7 +16,7 @@
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
     <?php if($isAplly == 1) { ?>
-        <div class="applyStatus">您已预约</div>
+        <div class="applyStatus">您已成功预约!</div>
     <?php }?>
     
 
@@ -249,6 +249,7 @@
                 if (request.status === 200) {
                     var result = JSON.parse(request.responseText);
                     formErrorTips(result.msg);
+                    window.location.reload()
                 } else {
                     formErrorTips(request.status);
                 }
