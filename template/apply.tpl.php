@@ -8,9 +8,11 @@
     <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Coach蔻驰</title>
 </head>
+
 <link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
 <!-- 引入适配方案-->
 <script src="/web/lib/lib-flexible/flexible.js"></script>
+<script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 <body>
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
@@ -336,6 +338,26 @@
     }, true)
 
 
+
+
+
+
+    wx.ready(function(){
+        /* ----------- 禁用分享 开始 ----------- */
+        wx.hideMenuItems({
+          menuList: [
+            //'menuItem:share:appMessage', // 分享到朋友
+            //'menuItem:share:timeline', // 分享到朋友圈
+            'menuItem:copyUrl' // 复制链接
+          ],
+          success: function (res) {
+            // alert('已隐藏“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
+          },
+          fail: function (res) {
+              //alert(JSON.stringify(res));
+          }
+        });
+    });
 
 </script>
 
