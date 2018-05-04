@@ -73,13 +73,13 @@
              </div>
             
             <?php if($isAplly == 1) { ?>
-                 <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
+                <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
                      一键预约 <span class="countdown"></span>
-                 </a>
+                </a>
              <?php } else {?>
-                <a href="javascript:void(0);" class="btn" id="reserve-btn">
+                <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
                      一键预约 <span class="countdown"></span>
-                 </a>
+                </a>
              <?php }?>
         </div>
 
@@ -138,9 +138,8 @@
             formErrorTips('请选择您需要预约的日期！');
         }else{
             // console.log(formVal);
-            countdownEl.innerHTML = "(10s)";
-            int = self.setInterval("countdown(submitForm)",1000);
             subdate = { qid: formVal.date, name: formVal.name, phone: formVal.tel };
+            ajax('POST', '/api/submit', subdate);
         }
     }
 
@@ -148,43 +147,29 @@
     reserveBtn.addEventListener("click", function(){
         if(this.className.indexOf('disabled') < 0){
             CheckForm();
-        }else{
-            formErrorTips('您已预约!');
         }
     }, false);
 
 
 
-    function countdown(fn){
+
+    var cdStatus = 0;
+    function countdown(){
+        cdStatus = 1;
         count--;
         if(count === 0 || count < 0){
             clearInterval(int);
             int = null;
-            
-            fn();
+            document.getElementById('reserve-btn').className = 'btn';
+            countdownEl.innerHTML = "";
+            cdStatus = 0;
         }else{
             countdownEl.innerHTML = "(" + count + "s)";
         }
     }
 
-    function submitForm(){
-        countdownEl.innerHTML = "";
-        ajax('POST', '/api/submit', subdate);
-    }
 
-
-    var pactLink = document.querySelector('.pact-link');
-    var rulePup = document.querySelector('.rule-pup');
-    var close = document.querySelector('.close');
-
-    pactLink.addEventListener('click', function(){
-        rulePup.style.visibility = 'visible';
-    }, true)
     
-    close.addEventListener('click', function(){
-        rulePup.style.visibility = 'hidden';
-    }, true)
-
 
 
 
@@ -243,6 +228,8 @@
         var index = selectData.selectedIndex;
         var selectValue = selectData.options[index].value;
         var selectText = selectData.options[index].text;
+
+    
         if(selectText == "日期 / DATE"){
             document.querySelector('.form-date').value = "";
         }else{
@@ -272,6 +259,94 @@
         request.send(data);
     }
     
+
+
+
+
+
+
+
+
+    // 失去焦点时检测
+    var ele = document, formVal;
+    var reg = /^1\d{10}$/;
+    function check(){
+        
+        formVal = {
+            name: ele.querySelector('.form-name').value,
+            tel: ele.querySelector('.form-tel').value,
+            shop: ele.querySelector('.form-shop').value,
+            date: ele.querySelector('.form-date').value
+        }
+
+        if(!formVal.name || !formVal.tel || !formVal.shop || !formVal.date){
+            if(reserveBtn.className.indexOf('disabled') < 0){
+                reserveBtn.className = 'btn disabled';
+            }
+            cdStatus = 0;
+        }else{
+            // console.log(formVal);
+            // console.log('!');
+            if(reserveBtn.className.indexOf('disabled') > 0){
+                count = 10;
+                countdownEl.innerHTML = "("+ count +"s)";
+                int = self.setInterval("countdown()",1000);
+            }
+            
+        }
+    }
+
+
+
+
+
+    document.querySelector('.form-name').addEventListener('blur', function(){
+        if(cdStatus) return false;
+        clearInterval(int);
+        int = null;
+        check(); 
+    })
+
+    document.querySelector('.form-tel').addEventListener('blur', function(){
+        if(cdStatus) return false;
+        clearInterval(int);
+        int = null;
+        check();
+    })
+
+    document.querySelector('.select-shop').addEventListener('blur', function(){
+        if(cdStatus) return false;
+        clearInterval(int);
+        int = null;
+        check();
+    })
+
+    document.querySelector('.select-date').addEventListener('blur', function(){
+        if(cdStatus) return false;
+        clearInterval(int);
+        int = null;
+        check();
+    })
+
+
+
+
+
+
+
+
+    // 活动规则
+    var pactLink = document.querySelector('.pact-link');
+    var rulePup = document.querySelector('.rule-pup');
+    var close = document.querySelector('.close');
+
+    pactLink.addEventListener('click', function(){
+        rulePup.style.visibility = 'visible';
+    }, true)
+    
+    close.addEventListener('click', function(){
+        rulePup.style.visibility = 'hidden';
+    }, true)
 
 
 

@@ -148,8 +148,6 @@
     reserveBtn.addEventListener("click", function(){
         if(this.className.indexOf('disabled') < 0){
             CheckForm();
-        }else{
-            formErrorTips('您已预约!');
         }
     }, false);
 
@@ -170,7 +168,12 @@
         var index = selectData.selectedIndex;
         var selectValue = selectData.options[index].value;
         var selectText = selectData.options[index].text;
-        document.querySelector('.form-date').value = selectText;
+        
+        if(selectText == "日期 / DATE"){
+            document.querySelector('.form-date').value = "";
+        }else{
+            document.querySelector('.form-date').value = selectText;
+        }
         // console.log(selectText ,selectValue);
     })
 
@@ -199,6 +202,7 @@
     function submitForm(data){
         ajax('POST', '/api/submit', data);
     }
+
 
 
 
