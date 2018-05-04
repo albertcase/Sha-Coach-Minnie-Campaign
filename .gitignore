@@ -1,4 +1,4 @@
 .vagrant/
 .git/
 .DS_Store
-web/
+web/node_modules/

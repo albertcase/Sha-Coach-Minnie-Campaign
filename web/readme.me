@@ -1,0 +1,79 @@
+全局安装 gulp 输入命令 npm install -g gulp
+在项目下面安装 输入命令 npm install gulp(指的是和README 同级的文件目录)
+安装相关插件 输入命令 npm install --save-dev gulp-sass gulp-autoprefixer browser-sync gulp-rename gulp-concat 【使用npm安装可能会报错，原因暂时未知，可以改为cnpm 安装cnpm 的方式为 npm install -g cnpm --registry=https://registry.npm.taobao.org 然后在执行 cnpm install --save-dev gulp-sass gulp-autoprefixer browser-sync gulp-rename gulp-concat】
+使用命令行输入 gulp serve，项目即可启动
+在地址栏输入http://localhost:3000/dist/templet/index.html#即可看到预览整个项目
+手机预览:手机端和电脑处于同一个局域网下，把localhost换为你本机的ip地址
+notice
+
+dist 是开发目录
+build 是生成好的
+lib 放公用的js
+
+
+
+https://github.com/bingyuea/demo/tree/master/flexbileTemplet
+
+
+// 使用
+使用flexible
+只需要从把flexibledown下来，在页面的头部引入（body之前），这个是必须的
+
+<script src="/dist/lib/lib-flexible/build/flexible.js"></script>
+1
+！！！引用flexible就不要在设置缩放比了 
+算出根字体大小 
+由设计稿的宽度除以/10
+
+$font-size-base: 75; //设计稿wdith/10
+1
+2
+写个rem函数，可以动态帮你计算
+
+@function rem($px){
+  @return $px/$font-size-base+rem;
+}
+1
+2
+3
+使用rem单位的时间就可以这样用
+
+ height:rem(44)
+1
+使用动态字体，一般来讲，字体是不推荐使用rem作为单位的，所以可以根据下面的来设置
+@mixin fontDpr($font-size){
+  font-size: $font-size * 1px;
+  [data-dpr="1"] & {
+    font-size: $font-size * .5px;
+  }
+  [data-dpr="2"] & {
+    font-size: $font-size * 1px;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 1.5px;
+  }
+}
+
+这样引用
+
+ @include fontDpr(15);//里面传一个基础的大小
+1
+三、bowsersync的使用
+demo的git连接down下来之后，直接在命令行输入gulp serve 即可启动bowsersync，预览项目的地址为http://localhost:3000/dist/templet/index.html 
+附带一个移动端的1px边框的sass函数
+
+@mixin single-border ($borderColor,$borderWidth) {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: $borderWidth;
+  width: 100%;
+  background-color: $borderColor;
+  display: block;
+  z-index: 15;
+  transform-origin: 50% 100%;
+  transform: scaleY(.5);
+

@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    display: block;
+    
+}
+
+li {
+    list-style: none;
+}
+
+// 换行处理
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+@import "public";
+@import "reset";
+
+
+
+/*****************************
+* ALERT
+*****************************/
+
+.alertNode{
+    width: 100%;
+    padding: rem(40) 0;
+    background: rgba(0,0,0,0.86);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    font-size: rem(28);
+    color: #fff;
+    text-align: center;
+    /*letter-spacing: 0.1em;*/
+}
+
+
+
+
+[data-page = "index"] {
+    width: 100%;
+    min-height: 100%;
+    background: #dbaab5 url('../img/footer.png') center bottom no-repeat;
+    background-size: contain;
+    text-align: center;
+
+    .applyStatus{
+        width: 100%;
+        padding: 90% 0 0 0; 
+        height: 100%;
+        position: fixed;
+        background: rgba(255,255,255,0.76);
+        left: 0;
+        top: 0;
+        z-index: 6;
+        @include fontDpr(38);
+    }
+
+    .logo{
+        width: rem(236);
+        height: rem(293);
+        margin: rem(20) auto 0 auto;
+        background: #dbaab5 url('../img/logo.png') center no-repeat;
+        background-size: contain;
+        display: inline-block;
+    }
+    
+    .form-reserve{
+        margin: rem(30) 0 0 0;
+        padding: 0 0 rem(30) 0;
+        .logo-brand{
+            width: rem(411);
+            height: rem(70);
+            background: url('../img/logo-brand.png') center no-repeat;
+            background-size: contain;
+            margin: 0 auto;
+        }
+        ul {
+            margin: rem(30) 0;
+            li{
+                width: rem(508);
+                height: rem(80);
+                line-height: rem(80);
+                background: #fff;
+                border: rem(2) #000 solid;
+                text-align: center;
+                margin: rem(30) auto;
+                position: relative;
+                &.selectArr:after{
+                    width: rem(25);
+                    height: rem(13);
+                    background: url('../img/arr-down.png') center no-repeat;
+                    background-size: contain;
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    right: rem(30);
+                    top: 50%;
+                    margin: rem(-6) 0 0 0;
+                }
+                select{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    z-index: 2;
+                    opacity: 0;
+                }
+                input{
+                    width: 90%;
+                    text-align: left;
+                    @include fontDpr(32);
+                }
+            }
+        }
+        .pact{
+            width: rem(410);
+            background: url('../img/pact.png') center no-repeat;
+            background-size: contain;
+            height: rem(29);
+            margin: 0 auto;
+            a{
+                width: rem(207);
+                height: rem(29);
+                float: right;
+            }
+        }
+
+        .btn{
+            width: rem(375);
+            line-height: rem(30);
+            padding: rem(30) rem(40);
+            color: #fff;
+            @include fontDpr(36);
+            background: #000;
+            display: inline-block;
+            margin: rem(20) 0 0 0;
+            position: relative;
+            &:after{
+                width: rem(13);
+                height: rem(30);
+                background: url('../img/arr-right.png') center no-repeat;
+                background-size: contain;
+                content: "";
+                float: right;
+                display: inline-block;
+                margin: 0 0 0 rem(20);
+            }
+        }
+    }
+
+    #reserve-btn.disabled{
+        opacity: 0.2;
+    }
+
+    .reserve-success{
+        width: 100%;
+        margin: rem(80) 0;
+        .success-theme{
+            padding: rem(50) 0;
+            @include fontDpr(44);
+            position: relative;
+            &:after{
+                width: rem(120);
+                height: 4px;
+                overflow: hidden;
+                background: #000;
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                margin: 0 0 0 rem(-60);
+                display: inline-block;
+            }
+        }
+        .success-text{
+            margin: rem(50) 0 0 0;
+            line-height: rem(60);
+            @include fontDpr(36);
+        }
+    }
+
+
+    .rule-pup{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 10;
+        visibility: hidden;
+
+         /* Center slide text vertically */
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+        .rule-con{
+            width: 80%;
+            background: #fff;
+            padding: rem(110) rem(53) rem(80) rem(53);
+            display: inline-block;
+            @include fontDpr(26);
+            line-height: rem(52);
+            text-align: left;
+            position: relative;
+            .close{
+                width: rem(28);
+                height: rem(28);
+                background: url('../img/close.png') center no-repeat;
+                background-size: contain;
+                position: absolute;
+                right: rem(30);
+                top: rem(30);
+                z-index: 2;
+            }
+            a{
+                display: inline-block;
+                color: #7f7f7f;
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+
