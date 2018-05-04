@@ -151,9 +151,58 @@ class HelpLib
 		$submit->updated = date('Y-m-d H:i:s');
 		$helper = new Helper();
 		$rs = $helper->insertTable('submit', $submit);
-		if($rs)
+		if($rs) {
+            $senData = new \stdClass();
+            $senData->openid = 'oKCDxjnSxj8QpmCvrjD0V8lb-JyE';
+            $senData->name = 'test';
+            $senData->date = date('Y-m-d H:i:s');
+            $this->sendMessage($senData);
 			return TRUE;
+        }
 		return FALSE;
 	}
 
+    // 预约成功 发送模版消息
+    public function sendMessage($senddata) 
+    {
+        $data = array(
+            'touser' => $senddata->openid,
+            'template_id' => 'WndD3kOmw-_OvtTPg0yfs0qziEWoHirCnsyXF8IiPns',
+            'url' => '',
+            'topcolor' => '#000000',
+            'data' => array(
+                'first' => array(
+                    'value' => "ceshi 预约成功。\n",
+                    'color' => '#000000'
+                ),
+                'keyword1' => array(
+                    'value' => $senddata->name,
+                    'color' => '#000000'
+                ),
+                'keyword2' => array(
+                    'value' => $senddata->date,
+                    'color' => '#000000'
+                ),
+                'remark' => array(
+                    'value' => "预约开始",
+                    'color' => '#000000'
+                )
+            )
+        );
+        $api_url = "http://coach.samesamechina.com/v2/wx/template/send?access_token=zcBpBLWyAFy6xs3e7HeMPL9zWrd7Xy";
+        $rs = $this->postData($api_url, $data);
+        return $rs;
+    }
+
+    public function postData($api_url, $data) {
+        $ch = curl_init ();
+        curl_setopt ( $ch, CURLOPT_URL, $api_url );
+        curl_setopt ( $ch, CURLOPT_POST, 1 );
+        curl_setopt ( $ch, CURLOPT_HEADER, 0 );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, json_encode($data) );
+        $return = curl_exec ( $ch );
+        return $return;
+        curl_close ( $ch );
+    }
 }
