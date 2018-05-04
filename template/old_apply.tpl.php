@@ -15,8 +15,12 @@
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
 
-    <?php if($isAplly == 1) { ?>
-        <div class="applyStatus">您已预约</div>
+    <?php if($isAllowApply) {?> 
+        <?php if($isAplly == 1) { ?>
+            <div class="applyStatus">您已成功预约!</div>
+        <?php }?>
+    <?php }else { ?>
+        <div class="applyStatus">活动已经结束!</div>
     <?php }?>
 
     <div class="logo"></div>
