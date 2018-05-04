@@ -580,7 +580,9 @@ textarea::-webkit-input-placeholder {
     [data-page="index"] .reserve-success .success-text {
       margin: 0.66667rem 0 0 0;
       line-height: 0.8rem;
-      font-size: 18px; }
+      font-size: 18px;
+      padding: 0 0.8rem;
+      display: inline-block; }
       [data-dpr="2"] [data-page="index"] .reserve-success .success-text {
         font-size: 36px; }
       [data-dpr="2.5"] [data-page="index"] .reserve-success .success-text {

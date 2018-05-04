@@ -186,6 +186,8 @@ html, body {
             margin: rem(50) 0 0 0;
             line-height: rem(60);
             @include fontDpr(36);
+            padding: 0 rem(60);
+            display: inline-block;
         }
     }
 

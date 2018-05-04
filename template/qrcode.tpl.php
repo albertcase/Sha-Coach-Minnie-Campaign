@@ -12,7 +12,7 @@
 <script src="/web/lib/lib-flexible/flexible.js"></script>
 <body>
 <!--http://fakeimg.pl/30x40-->
-<section data-page="index">
+<section data-page="index" data-status="<?php echo $applys['status'];?>">
 
     <div class="logo"></div>
 
