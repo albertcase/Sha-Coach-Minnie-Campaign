@@ -135,8 +135,10 @@ class HelpLib
     	$submit = new \stdClass();
     	$submit->openid = $data->openid;
     	$submit->qid = $data->qid;
-    	$submit->name = $data->name;
-    	$submit->phone = $data->phone;
+        if(!$this->isOldOpenid($data->openid)) {
+            $submit->name = $data->name;
+            $submit->phone = $data->phone;
+        }
 		$submit->created = date('Y-m-d H:i:s');
 		$submit->updated = date('Y-m-d H:i:s');
 		$helper = new Helper();
