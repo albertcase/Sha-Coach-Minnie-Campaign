@@ -456,7 +456,7 @@ textarea::-webkit-input-placeholder {
     background-size: contain;
     display: inline-block; }
   [data-page="index"] .form-reserve {
-    margin: 0.4rem 0 0 0;
+    margin: 0.26667rem 0 0 0;
     padding: 0 0 0.4rem 0; }
     [data-page="index"] .form-reserve .logo-brand {
       width: 5.48rem;
