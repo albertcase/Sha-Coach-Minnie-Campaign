@@ -29,7 +29,7 @@
                     <?php echo $applys['date'];?>，<?php echo $applys['shop'];?>店铺期待您的莅临！
                 </div>
             <?php } else {?>
-                <div class="success-text"> 预约活动已结束！</div>
+                <div class="success-text"> 您还未预约当前！<!-- 预约活动已结束！ --></div>
             <?php }?>
 
             
