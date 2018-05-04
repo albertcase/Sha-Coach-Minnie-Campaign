@@ -4,6 +4,8 @@
 db: db/coach_minnie_campaign.sql
 初始化操作：
 初始化预约场次：php script/creare_quota.php 
+/confg/config.php 
+ALLOW_APPLY_DATE: 可以预约的时间范围配置
 
 ---
 
@@ -21,6 +23,7 @@ db: db/coach_minnie_campaign.sql
 页面值：
 $isAplly [1, 0] 1:已经预约 0:未预约
 $quota：场次数组
+$isAllowApply bool [true, false] true:可以预约 false:不可以预约
 
 ```
 

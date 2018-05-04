@@ -25,6 +25,7 @@ class PageController extends Controller
 	{
 		global $user;
 		$help = new HelpLib();
+		$isAllowApply = $help->isAllowApply();
 		$isOld = $help->isOldOpenid($user->openid); //是否已经导入用户
 		$shopQuota = $help->findShopQuota(); //查找店铺
 		$quota = []; 
@@ -40,9 +41,9 @@ class PageController extends Controller
 		}
 		$isAplly = $help->isSubmit($user->openid);
 		if($isOld) {
-			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly]);
+			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly, 'isAllowApply' => $isAllowApply]);
 		} else {
-			return $this->render('apply', ['quota' => $quota, 'isAplly' => $isAplly]);
+			return $this->render('apply', ['quota' => $quota, 'isAplly' => $isAplly, 'isAllowApply' => $isAllowApply]);
 		}
 	}
 
