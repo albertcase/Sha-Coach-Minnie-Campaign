@@ -14,6 +14,14 @@ class HelpLib
         $this->_pdo = PDO::getInstance();
     }
 
+    public function isAllowApply()
+    {
+        $allowDate = json_decode(ALLOW_APPLY_DATE);
+        if(strtotime($allowDate['0']) < strtotime(NOWTIME) && strtotime(NOWTIME) < strtotime($allowDate['1']))
+            return true;
+        return false;
+    }
+
 	// 检查是否为预先导入的openid
 	public function isOldOpenid($openid)
 	{
