@@ -346,8 +346,8 @@
         /* ----------- 禁用分享 开始 ----------- */
         wx.hideMenuItems({
           menuList: [
-            //'menuItem:share:appMessage', // 分享到朋友
-            //'menuItem:share:timeline', // 分享到朋友圈
+            'menuItem:share:appMessage', // 分享到朋友
+            'menuItem:share:timeline', // 分享到朋友圈
             'menuItem:copyUrl' // 复制链接
           ],
           success: function (res) {
