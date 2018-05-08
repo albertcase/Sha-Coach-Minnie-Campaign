@@ -81,7 +81,7 @@ class HelpLib
     // 查找时间段
     public function findDateQuota($fid)
     {
-        $sql = "SELECT `id`, `name` FROM `quota` WHERE fid=:fid";
+        $sql = "SELECT `id`, `name`, `num` FROM `quota` WHERE fid=:fid";
         $query = $this->_pdo->prepare($sql);    
         $query->execute([':fid' => $fid]);
         $row = $query->fetchAll(\PDO::FETCH_ASSOC);
