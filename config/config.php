@@ -21,6 +21,7 @@ define("TOKEN", 'xxx');
 define("APPID", '#');
 define("APPSECRET", '#');
 define("NOWTIME", date('Y-m-d H:i:s'));
+// define("NOWTIME", '2018-05-18 15:10:00');
 define("AHEADTIME", '1000');
 
 define("NONCESTR", '?????');
