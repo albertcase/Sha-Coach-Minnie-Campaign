@@ -61,7 +61,7 @@ define("ENCRYPT_IV", '6E4CAB2EAAF32E90');
 
 define("WECHAT_TOKEN_PREFIX", 'wechat:token:');
 
-define("ALLOW_APPLY_DATE", '[
+define("LAUNCH_DATE", '[
 	"2018-05-01 00:00:00",
 	"2018-05-10 23:59:59"
 ]');

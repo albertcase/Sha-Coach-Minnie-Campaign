@@ -14,10 +14,10 @@ class HelpLib
         $this->_pdo = PDO::getInstance();
     }
 
-    public function isAllowApply()
+    public function isLaunched()
     {
-        $allowDate = json_decode(ALLOW_APPLY_DATE);
-        if(strtotime($allowDate['0']) < strtotime(NOWTIME) && strtotime(NOWTIME) < strtotime($allowDate['1']))
+        $launchDate = json_decode(LAUNCH_DATE);
+        if(strtotime($launchDate['0']) < strtotime(NOWTIME) && strtotime(NOWTIME) < strtotime($launchDate['1']))
             return true;
         return false;
     }
@@ -35,6 +35,23 @@ class HelpLib
         return NULL;
 	}
 
+    public function getReservationList() 
+    {
+        $date = date('Y-m-d');
+        $sql = "SELECT s.name, i.date, t.title, i.used, i.quota, t.id, t.start, t.end FROM items i 
+        LEFT JOIN store s on s.id = i.sid
+        LEFT JOIN times t on t.id = i.tid
+        WHERE i.date >= :date 
+        ORDER BY s.id, i.id ASC";
+        $query = $this->_pdo->prepare($sql);
+        $query->execute([':date' => $date]);
+        $data = $query->fetchAll(\PDO::FETCH_ASSOC);
+        if($data) {
+            return $data;
+        }
+        return [];
+    }
+
 	// 查找店铺
     public function findShopQuota()
     {
@@ -51,7 +68,7 @@ class HelpLib
     // 查找店铺
     public function findQuotaById($id)
     {
-        $sql = "SELECT `id`, `name`, `fid` FROM `quota` WHERE id = :id";
+        $sql = "SELECT `id`, `name`, `fid`, `num` FROM `quota` WHERE id = :id";
         $query = $this->_pdo->prepare($sql);    
         $query->execute([':id' => $id]);
         $row = $query->fetch(\PDO::FETCH_ASSOC);

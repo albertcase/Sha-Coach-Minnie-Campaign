@@ -25,25 +25,33 @@ class PageController extends Controller
 	{
 		global $user;
 		$help = new HelpLib();
-		$isAllowApply = $help->isAllowApply();
-		$isOld = $help->isOldOpenid($user->openid); //是否已经导入用户
-		$shopQuota = $help->findShopQuota(); //查找店铺
-		$quota = []; 
-		if(!empty($shopQuota)) {
-			foreach ($shopQuota as $sk => $sv) { //通过店铺查找时间段场次
-				$quota[$sk]['shop'] = $sv['name'];
-				$dateQuota = $help->findDateQuota($sv['id']);
-				foreach ($dateQuota as $dk => $dv) { //查找场次的余额
-					$dateQuota[$dk]['has_quota'] = $help->hasQuota($dv['id']);
-				}
-				$quota[$sk]['date'] = $dateQuota;
+		if(!$help->isLaunched()) {
+			return $this->render('not_launched', []);
+		}
+		if($help->isSubmit($user->openid)) {
+			return $this->render('is_apply', []);
+		}		
+		$reservationRawList = $help->getReservationList();
+		$reservationList = [];
+		if(!empty($reservationRawList)) {
+			$i = 0;
+			$now = date('H:i:s');
+			foreach ($reservationRawList as $key => $value) {
+				$reservationList[$value['name']][$key]['date'] = $value['date'];
+				$reservationList[$value['name']][$key]['time'] = $value['title'];
+				$reservationList[$value['name']][$key]['id'] = $value['id'];
+
+				if($now >= $value['start'] && $now < $value['end'] && ($value['quota'] - $value['used']) > 0)
+					$reservationList[$value['name']][$key]['has_quota'] =  true;
+				else
+					$reservationList[$value['name']][$key]['has_quota'] =  false;
 			}
 		}
-		$isAplly = $help->isSubmit($user->openid);
+		$isOld = $help->isOldOpenid($user->openid); 
 		if($isOld) {
-			return $this->render('old_apply', ['quota' => $quota, 'isAplly' => $isAplly, 'isAllowApply' => $isAllowApply]);
+			return $this->render('old_apply', ['quota' => $reservationList]);
 		} else {
-			return $this->render('apply', ['quota' => $quota, 'isAplly' => $isAplly, 'isAllowApply' => $isAllowApply]);
+			return $this->render('apply', ['quota' => $reservationList]);
 		}
 	}
 
