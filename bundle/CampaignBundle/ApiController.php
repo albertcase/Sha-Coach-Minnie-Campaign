@@ -33,7 +33,7 @@ class ApiController extends Controller
             foreach ($reservationRawList as $key => $value) {
                 $reservationList[$value['name']][$key]['date'] = $value['date'];
                 $reservationList[$value['name']][$key]['time'] = $value['title'];
-                $reservationList[$value['name']][$key]['tid'] = $value['id'];
+                $reservationList[$value['name']][$key]['id'] = $value['id'];
 
                 if($now >= $value['start'] && $now < $value['end'] && ($value['quota'] - $value['used']) > 0)
                     $reservationList[$value['name']][$key]['has_quota'] =  true;
