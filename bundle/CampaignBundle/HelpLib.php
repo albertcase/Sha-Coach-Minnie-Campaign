@@ -153,9 +153,13 @@ class HelpLib
 		$rs = $helper->insertTable('submit', $submit);
 		if($rs) {
             $senData = new \stdClass();
-            $senData->openid = 'oKCDxjnSxj8QpmCvrjD0V8lb-JyE';
-            $senData->name = 'test';
-            $senData->date = date('Y-m-d H:i:s');
+            $senData->openid = $submit->openid;
+            $senData->name = isset($submit->name) ? $submit->name : '';
+            $senData->phone = isset($submit->phone) ? $submit->phone : '';
+            $dates = $this->findQuotaById($submit->qid);
+            $shops = $this->findQuotaById($dates->fid);
+            $senData->date = $dates->name;
+            $senData->shop = $shops->name;
             $this->sendMessage($senData);
 			return TRUE;
         }
@@ -167,12 +171,12 @@ class HelpLib
     {
         $data = array(
             'touser' => $senddata->openid,
-            'template_id' => 'WndD3kOmw-_OvtTPg0yfs0qziEWoHirCnsyXF8IiPns',
-            'url' => '',
+            'template_id' => 'OGosN3rcb0KwyRfBXriyPIJdc4dtf5P5qpGt635_FUU',
+            'url' => 'http://minnie.coach.samesamechina.com/qrcode',
             'topcolor' => '#000000',
             'data' => array(
                 'first' => array(
-                    'value' => "ceshi 预约成功。\n",
+                    'value' => "尊敬的贵宾，您已成功预约Coach x Disney梦幻乐园，我们期待与你共度玩趣时尚的美妙时光。\n",
                     'color' => '#000000'
                 ),
                 'keyword1' => array(
@@ -180,11 +184,23 @@ class HelpLib
                     'color' => '#000000'
                 ),
                 'keyword2' => array(
+                    'value' => $senddata->phone,
+                    'color' => '#000000'
+                ),
+                'keyword3' => array(
+                    'value' => 'Coach x Disney梦幻乐园',
+                    'color' => '#000000'
+                ),
+                'keyword4' => array(
                     'value' => $senddata->date,
                     'color' => '#000000'
                 ),
+                'keyword5' => array(
+                    'value' => $senddata->shop,
+                    'color' => '#000000'
+                ),
                 'remark' => array(
-                    'value' => "预约开始",
+                    'value' => "敬请点击下方“详情”，查看活动详细信息。",
                     'color' => '#000000'
                 )
             )

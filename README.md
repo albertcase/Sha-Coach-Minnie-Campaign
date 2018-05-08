@@ -37,6 +37,8 @@ $isAllowApply bool [true, false] true:可以预约 false:不可以预约
 
 ###6. 授权地址：http://coach.samesamechina.com/api/wechat/oauth/auth/2991f99a-c3ee-44a6-bdbe-75d79575c729
 
+###7. 预约成功模版消息 模版id：OGosN3rcb0KwyRfBXriyPIJdc4dtf5P5qpGt635_FUU
+
 ---
 
 ###预约接口
