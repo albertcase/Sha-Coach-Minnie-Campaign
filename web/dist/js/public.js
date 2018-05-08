@@ -69,6 +69,21 @@ function ajax(method, url, data, callback) {
 
 
 
+/* 
+ * 获取api数据
+ */
+
+function queryQuotaData(){
+    ajax('GET', '/api/quota', {}, function(result){
+        console.log(result);
+    });
+}
+
+queryQuotaData();
+
+
+
+var queryData = {};
 
 
 
@@ -156,6 +171,17 @@ function check(){
     }
     return fromData;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
