@@ -28,7 +28,7 @@ class PageController extends Controller
 		if(!$help->isLaunched()) {
 			return $this->render('not_launched', []);
 		}
-		if($help->isSubmit($user->openid)) {
+		if($help->findReservationByRid($user->uid)) {
 			return $this->render('is_apply', []);
 		}		
 		$isOld = $help->isOldOpenid($user->openid); 
