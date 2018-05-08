@@ -17,14 +17,14 @@ gulp.task('serve', function() {
         console.log('完成');
     });
     gulp.watch("dist/css/*.scss", ['sass']).on('change', reload);
-    gulp.watch("dist/lib/!**.js", ['miniJs']).on('change', reload);
-    // gulp.watch("lib/**.js", ['miniJs']).on('change', reload);
+    gulp.watch("dist/js/*.js", ['miniJs']).on('change', reload);
+    // gulp.watch("dist/js/**.js", ['miniJs']).on('change', reload);
     gulp.watch("dist/templet/*.html", ['miniHtml']).on('change', reload);
 });
 // js
 gulp.task('miniJs', function () {
-    gulp.src('dist/lib/!**.js')  //要合并的文件
-    .pipe(concat('script.js'))  // 合并匹配到的js文件并命名为
+    gulp.src('dist/js/*.js')  //要合并的文件
+    //.pipe(concat('script.js'))  // 合并匹配到的js文件并命名为
     .pipe(gulp.dest('build/js'))
     .pipe(reload({stream: true}));
 });

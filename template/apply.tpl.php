@@ -13,8 +13,13 @@
 <!-- 引入适配方案-->
 <script src="/web/lib/lib-flexible/flexible.js"></script>
 <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
+
+<script type="text/javascript">
+    var queryData = <?php echo json_encode($quota);?>;  // 店铺和日期全部数据
+</script>
+
 <body>
-<!--http://fakeimg.pl/30x40-->
+
 <section data-page="index">
     <?php if($isAllowApply) {?> 
         <?php if($isAplly == 1) { ?>
@@ -50,10 +55,10 @@
         <div class="form-table" id="form-1">
             <ul>
                  <li>
-                     <input type="text" name="name" class="form-blur form-name" placeholder="姓名 / NAME">
+                     <input type="text" name="name" data-error="姓名选项不能为空!" class="form-check form-blur form-name" placeholder="姓名 / NAME">
                  </li>
                  <li>
-                     <input type="tel" maxlength="11" name="tel" class="form-blur form-tel" placeholder="手机 / MOBIlE PHONE">
+                     <input type="tel" maxlength="11" data-error="手机号码输入有误！" name="tel" class="form-check form-blur form-tel" placeholder="手机 / MOBIlE PHONE">
                  </li>
                  <li class="selectArr">
                      <span></span>
@@ -63,9 +68,10 @@
                          <option>北京</option>
                          <option>深圳</option> -->
                      </select>
-                     <input type="text" name="shop" class="form-shop" placeholder="店铺 / SHOP">
+                    <input type="text" name="shop" data-error="请选择您需要预约的店铺！" class="form-check form-shop" placeholder="店铺 / SHOP">
                  </li>
                  <li class="selectArr">
+                    <input type="hidden" name="data" data-error="请选择您需要预约的日期！" class="form-check select-date-value">
                     <span></span>
                     <select name="date" class="form-blur select-date" disabled>
                          <option>日期 / DATE</option>
@@ -80,287 +86,17 @@
                  <a href="javascript:void(0)" class="pact-link"></a>
              </div>
             
-            <?php if($isAplly == 1) { ?>
-                <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
-                     一键预约 <span class="countdown"></span>
-                </a>
-             <?php } else {?>
-                <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
-                     一键预约 <span class="countdown"></span>
-                </a>
-             <?php }?>
+            <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
+                 一键预约 <span class="countdown"></span>
+            </a>
         </div>
 
 
     </div>
 
 </section>
-
-<script type="text/javascript">
-
-    var queryData = <?php echo json_encode($quota);?>;  // 店铺和日期全部数据
-    var isAplly = <?php echo json_encode($isAplly);?>;  // 是否已经预约  1.已经预约， 0.未预约
-    var int, count = 10, countdownEl = document.querySelector('.countdown'), subdate;
-
-    // 状态提示
-    function formErrorTips(alertNodeContext){
-        var alertInt,
-            alertEvent = document.querySelectorAll('.alertNode');
-        clearTimeout(alertInt);
-        if(alertEvent.length > 0){
-            alertEvent.innerHTML = alertNodeContext;
-        }else{
-            var alertNode = document.createElement("div");
-                alertNode.setAttribute("class","alertNode");
-                alertNode.innerHTML = alertNodeContext;
-                document.body.appendChild(alertNode);
-        }
-        alertInt = setTimeout(function(){
-            alertEvent = document.querySelector('.alertNode');
-            alertEvent.remove();
-        },1600);
-    }
-
-
-    // 点击提交按钮表单各项检测已经数据接口提交
-    function CheckForm(){
-        var ele = document;
-        var reg = /^1\d{10}$/;
-        var formVal = {
-            name: ele.querySelector('.form-name').value,
-            tel: ele.querySelector('.form-tel').value,
-            shop: ele.querySelector('.form-shop').value,
-            date: ele.querySelector('.select-date').value
-        }
-
-        if(!formVal.name){
-            formErrorTips('姓名选项不能为空!');
-        }else if(!reg.test(formVal.tel)){
-            formErrorTips('手机号码输入有误！');
-        }else if(!formVal.shop || formVal.shop == '店铺 / SHOP'){
-            formErrorTips('请选择您需要预约的店铺！');
-        }else if(!formVal.date || formVal.date == '日期 / DATE'){
-            formErrorTips('请选择您需要预约的日期！');
-        }else{
-            // console.log(formVal);
-            subdate = { qid: formVal.date, name: formVal.name, phone: formVal.tel };
-            ajax('POST', '/api/submit', subdate);
-        }
-    }
-
-    var reserveBtn = document.getElementById('reserve-btn');
-    reserveBtn.addEventListener("click", function(){
-        if(this.className.indexOf('disabled') < 0){
-            CheckForm();
-        }
-    }, false);
-
-
-
-    // 倒计时
-    var cdStatus = 0;
-    function countdown(){
-        cdStatus = 1;
-        count--;
-        if(count === 0 || count < 0){
-            clearInterval(int);
-            int = null;
-            document.getElementById('reserve-btn').className = 'btn';
-            countdownEl.innerHTML = "";
-            cdStatus = 0;
-        }else{
-            countdownEl.innerHTML = "(" + count + "s)";
-        }
-    }
-
-
-    
-
-
-    // 遍历店铺或日期数据
-    function DataBox(){
-        this.getShop = function(){
-            var shopHTML = ['<option>店铺 / SHOP</option>'], selectShop = document.querySelector('.select-shop');
-            for(var i = 0; i < queryData.length; i++){
-                shopHTML.push('<option>'+ queryData[i].shop +'</option>');
-            }
-            selectShop.innerHTML = shopHTML.join('');
-        }
-
-        this.getDate = function(val){
-
-            var dateHTML = ['<option>日期 / DATE</option>'], selectDate = document.querySelector('.select-date');
-            for(var b = 0; b < queryData.length; b++){
-                var timeArr = queryData[b].date;
-                if(queryData[b].shop == val){
-                    for(var a = 0; a < timeArr.length; a++){
-                        if(timeArr[a].has_quota){
-                            dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
-                        }  
-                    }
-                    selectDate.innerHTML = dateHTML.join('');
-                };
-            }
-
-
-            
-            
-        }
-    }
-
-
-    var databox = new DataBox();
-    databox.getShop();
-
-
-    // 店铺
-    var selectShop = document.querySelector('.select-shop');
-    selectShop.addEventListener('change', function(){
-        document.querySelector('.form-shop').value = selectShop.value;
-        if(selectShop.value && selectShop.value != "店铺 / SHOP"){
-            document.querySelector('.select-date').removeAttribute('disabled');
-            document.querySelector('.form-date').value = "";
-            databox.getDate(selectShop.value);
-        }else{
-            document.querySelector('.select-date').innerHTML = "";
-            document.querySelector('.form-date').value = "";
-            document.querySelector('.form-shop').value = "";
-        }
-        // console.log(data.value);
-    })
-
-
-    // 日期
-    var selectData = document.querySelector('.select-date');
-    selectData.addEventListener('change', function(){
-        var index = selectData.selectedIndex;
-        var selectValue = selectData.options[index].value;
-        var selectText = selectData.options[index].text;
-
-    
-        if(selectText == "日期 / DATE"){
-            document.querySelector('.form-date').value = "";
-        }else{
-            document.querySelector('.form-date').value = selectText;
-        }
-        
-        // console.log(selectText ,selectValue);
-    })
-
-
-
-    function ajax(method, url, data) {
-        var request = new XMLHttpRequest();
-        var data = JSON.stringify(data);
-        request.onreadystatechange = function () {
-            if (request.readyState === 4) {
-                if (request.status === 200) {
-                    var result = JSON.parse(request.responseText);
-                    formErrorTips(result.msg);
-                    window.location.reload()
-                } else {
-                    formErrorTips(request.status);
-                }
-            }
-        };
-        request.open(method, url);
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-        request.send(data);
-    }
-    
-
-
-
-
-
-
-
-
-    // 失去焦点时检测
-    var ele = document, formVal;
-    var reg = /^1\d{10}$/;
-    function check(){
-        
-        formVal = {
-            name: ele.querySelector('.form-name').value,
-            tel: ele.querySelector('.form-tel').value,
-            shop: ele.querySelector('.form-shop').value,
-            date: ele.querySelector('.form-date').value
-        }
-
-        if(!formVal.name || !formVal.tel || !formVal.shop || !formVal.date){
-            if(reserveBtn.className.indexOf('disabled') < 0){
-                reserveBtn.className = 'btn disabled';
-            }
-            cdStatus = 0;
-        }else{
-            // console.log(formVal);
-            // console.log('!');
-            if(reserveBtn.className.indexOf('disabled') > 0){
-                count = 10;
-                countdownEl.innerHTML = "("+ count +"s)";
-                int = self.setInterval("countdown()",1000);
-            }
-            
-        }
-    }
-
-
-
-
-    // 表单输入框失去焦点事件监测
-
-    var ftli = document.querySelectorAll('.form-blur');
-    for (var i = 0; i < ftli.length; i++){
-        ftli[i].addEventListener('blur', function(evt){
-            if(cdStatus) return false;
-            clearInterval(int);
-            int = null;
-            check(); 
-        })
-    }
-
-
-
-
-
-    // 活动规则
-    var pactLink = document.querySelector('.pact-link');
-    var rulePup = document.querySelector('.rule-pup');
-    var close = document.querySelector('.close');
-
-    pactLink.addEventListener('click', function(){
-        rulePup.style.visibility = 'visible';
-    }, true)
-    
-    close.addEventListener('click', function(){
-        rulePup.style.visibility = 'hidden';
-    }, true)
-
-
-
-
-
-
-    wx.ready(function(){
-        /* ----------- 禁用分享 开始 ----------- */
-        wx.hideMenuItems({
-          menuList: [
-            'menuItem:share:appMessage', // 分享到朋友
-            'menuItem:share:timeline', // 分享到朋友圈
-            'menuItem:copyUrl' // 复制链接
-          ],
-          success: function (res) {
-            // alert('已隐藏“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
-          },
-          fail: function (res) {
-              //alert(JSON.stringify(res));
-          }
-        });
-    });
-
-</script>
-
+<script src="/web/build/js/public.js"></script>
+<script src="/web/build/js/apply.js"></script>
 
 </body>
 </html>
