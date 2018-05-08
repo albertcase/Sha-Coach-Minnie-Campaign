@@ -1,0 +1,1 @@
+<div class="applyStatus">您已成功预约!</div>

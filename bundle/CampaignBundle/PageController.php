@@ -31,27 +31,11 @@ class PageController extends Controller
 		if($help->isSubmit($user->openid)) {
 			return $this->render('is_apply', []);
 		}		
-		$reservationRawList = $help->getReservationList();
-		$reservationList = [];
-		if(!empty($reservationRawList)) {
-			$i = 0;
-			$now = date('H:i:s');
-			foreach ($reservationRawList as $key => $value) {
-				$reservationList[$value['name']][$key]['date'] = $value['date'];
-				$reservationList[$value['name']][$key]['time'] = $value['title'];
-				$reservationList[$value['name']][$key]['id'] = $value['id'];
-
-				if($now >= $value['start'] && $now < $value['end'] && ($value['quota'] - $value['used']) > 0)
-					$reservationList[$value['name']][$key]['has_quota'] =  true;
-				else
-					$reservationList[$value['name']][$key]['has_quota'] =  false;
-			}
-		}
 		$isOld = $help->isOldOpenid($user->openid); 
 		if($isOld) {
-			return $this->render('old_apply', ['quota' => $reservationList]);
+			return $this->render('old_apply');
 		} else {
-			return $this->render('apply', ['quota' => $reservationList]);
+			return $this->render('apply');
 		}
 	}
 
@@ -61,19 +45,16 @@ class PageController extends Controller
 		global $user;
 		$applyRes = new \stdClass(); //预约结果
 		$help = new HelpLib();
-		$submit = $help->findSubmitByOpenid($user->openid);
-		if(!$submit) {
-			return $this->render('qrcode', ['applys' => ['status' => 0, 'msg' => '抱歉，你未预约！']]);
+		$reservation = $help->findReservationByUid($user->uid);
+		if(!$reservation) {
+			return $this->render('result', ['status' => 0, 'msg' => '抱歉，你未预约！']);
 		}
-		$dates = $help->findQuotaById($submit->qid);
-		$shops =  $help->findQuotaById($dates->fid);
-		$applyRes->status = 1;
-		$applyRes->name = $submit->name;
-		$applyRes->phone = $submit->phone;
-		$applyRes->date = $dates->name;
-		$applyRes->shop = $shops->name;
-		unset($dates, $shops, $submit);
-		return $this->render('qrcode', ['applys' => (array) $applyRes]);
+		if($help->isCheckin($user->uid)) {
+			return $this->render('result', ['status' => 1, 'msg' => '您已经核销！']);
+		}
+		if($reservationData = $help->normalizeReservationData($reservation)) {
+			return $this->render('result', ['status' => 200, 'item' => $reservationData]);
+		}
 	}
 
 	public function clearCookieAction() 

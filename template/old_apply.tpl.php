@@ -12,21 +12,10 @@
 <script src="/web/lib/lib-flexible/flexible.js"></script>
 <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 
-<script type="text/javascript">
-    var queryData = <?php echo json_encode($quota);?>;
-</script>
 <body>
 
 <!--http://fakeimg.pl/30x40-->
 <section data-page="index">
-
-    <?php if($isAllowApply) {?> 
-        <?php if($isAplly == 1) { ?>
-            <div class="applyStatus">您已成功预约!</div>
-        <?php }?>
-    <?php }else { ?>
-        <div class="applyStatus">活动已经结束!</div>
-    <?php }?>
 
     <div class="logo"></div>
 

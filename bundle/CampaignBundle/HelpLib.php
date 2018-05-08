@@ -22,6 +22,15 @@ class HelpLib
         return false;
     }
 
+    public function isCheckin($uid)
+    {
+        $sql = "SELECT 1 FROM `reservation` WHERE `uid` = :uid and `checkin` = 1";
+        $query = $this->_pdo->prepare($sql);    
+        $query->execute([':uid' => $uid]);
+        $row = $query->fetch(\PDO::FETCH_ASSOC);
+        return $row;      
+    }
+
 	// 检查是否为预先导入的openid
 	public function isOldOpenid($openid)
 	{
@@ -52,51 +61,45 @@ class HelpLib
         return [];
     }
 
-	// 查找店铺
-    public function findShopQuota()
+    public function findItemById($item_id)
     {
-        $sql = "SELECT `id`, `name` FROM `quota` WHERE fid=0";
+        $sql = "SELECT s.name, i.date, t.title FROM items i 
+        LEFT JOIN store s on s.id = i.sid
+        LEFT JOIN times t on t.id = i.tid
+        WHERE i.id = :item_id";
         $query = $this->_pdo->prepare($sql);    
-        $query->execute();
-        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
+        $query->execute([':item_id' => $item_id]);
+        $row = $query->fetch(\PDO::FETCH_ASSOC);
         if($row) {
-      		return $row;
+      		return (object) $row;
         }
         return [];
     }
 
-    // 查找店铺
-    public function findQuotaById($id)
+    public function hasQuota($id) 
     {
-        $sql = "SELECT `id`, `name`, `fid`, `num` FROM `quota` WHERE id = :id";
+        $sql = "SELECT `used`, `quota` FROM `items` WHERE `id` = :id";
         $query = $this->_pdo->prepare($sql);    
         $query->execute([':id' => $id]);
         $row = $query->fetch(\PDO::FETCH_ASSOC);
         if($row) {
-      		return (object) $row;
+            return $row['quota'] > $row['used'] ? true : false;
         }
-        return [];
+        return false;
     }
 
-    // 查找时间段
-    public function findDateQuota($fid)
+    public function addUsed($id)
     {
-        $sql = "SELECT `id`, `name`, `num` FROM `quota` WHERE fid=:fid";
+        $sql = "UPDATE `items` SET used = used+1 WHERE `id` = :id";
         $query = $this->_pdo->prepare($sql);    
-        $query->execute([':fid' => $fid]);
-        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
-        if($row) {
-      		return $row;
-        }
-        return [];
+        return $query->execute([':id' => $id]);
     }
 
-    // 查找场次
-    public function findQuotaByQid($qid)
+    public function findReservationByUid($uid)
     {
-        $sql = "SELECT `id`, `name`, `num` FROM `quota` WHERE `id` = :id";
+    	$sql = "SELECT `id`, `item_id`, `name`, `phone` FROM `reservation` WHERE `uid` = :uid";
         $query = $this->_pdo->prepare($sql);    
-        $query->execute([':id' => $qid]);
+        $query->execute([':uid' => $uid]);
         $row = $query->fetch(\PDO::FETCH_ASSOC);
         if($row) {
       		return (object) $row;
@@ -104,90 +107,74 @@ class HelpLib
         return NULL;
     }
 
-    // 查找场次
-    public function findSubmitByQid($qid)
+    public function findReservationByRid($rid)
     {
-        $sql = "SELECT COUNT(`id`) AS `sum` FROM `submit` WHERE `qid` = :qid";
+        $sql = "SELECT `id`, `item_id`, `name`, `phone` FROM `reservation` WHERE `id` = :rid";
         $query = $this->_pdo->prepare($sql);    
-        $query->execute([':qid' => $qid]);
+        $query->execute([':rid' => $rid]);
         $row = $query->fetch(\PDO::FETCH_ASSOC);
         if($row) {
-      		return (object) $row;
+            return (object) $row;
         }
         return NULL;
     }
 
-    // 查找是否还有预约名额
-    public function hasQuota($qid) 
+    public function normalizeReservationData($reservation)
     {
-        $quota = $this->findQuotaByQid($qid); //总库存
-        $submit = $this->findSubmitByQid($qid); //现在占用的库存
-        if($submit->sum < $quota->num) {
-        	return TRUE;
-        } else {
-        	return FALSE;
-        }
+        $data = new \stdClass();
+        $data->name = isset($reservation->name) ? $reservation->name : '';
+        $data->phone = isset($reservation->phone) ? $reservation->phone : '';
+        $item = $this->findItemById($reservation->item_id);
+        $data->date = $item->date.'('.$item->title.')';
+        $data->shop = $item->name;
+        return $data;
     }
 
-    // 验证是否预约过 一个人只能预约一次
-    public function isSubmit($openid) 
+    public function checkin($uid)
     {
-        $sql = "SELECT `id`, `qid` FROM `submit` WHERE `openid` = :openid";
+        $sql = "UPDATE `reservation` SET checkin = 1 WHERE `uid` = :uid";
         $query = $this->_pdo->prepare($sql);    
-        $query->execute([':openid' => $openid]);
-        $row = $query->fetchAll(\PDO::FETCH_ASSOC);
-        if($row) {
-      		return 1;
-        }
-        return 0;
-    }
-
-    public function findSubmitByOpenid($openid)
-    {
-    	$sql = "SELECT `id`, `qid`, `name`, `phone` FROM `submit` WHERE `openid` = :openid";
-        $query = $this->_pdo->prepare($sql);    
-        $query->execute([':openid' => $openid]);
-        $row = $query->fetch(\PDO::FETCH_ASSOC);
-        if($row) {
-      		return (object) $row;
-        }
-        return NULL;
+        return $query->execute([':uid' => $uid]);
     }
 
     // 预约
     public function submit($data) 
     {
+        global $user;
+
     	$submit = new \stdClass();
-    	$submit->openid = $data->openid;
-    	$submit->qid = $data->qid;
-        if(!$this->isOldOpenid($data->openid)) {
+        $submit->uid = $user->uid;
+        $submit->item_id = $data->id;
+        if(!$this->isOldOpenid($user->openid)) {
             $submit->name = $data->name;
             $submit->phone = $data->phone;
         }
-		$submit->created = date('Y-m-d H:i:s');
-		$submit->updated = date('Y-m-d H:i:s');
+		$submit->created = NOWTIME;
+		$submit->updated = NOWTIME;
 		$helper = new Helper();
-		$rs = $helper->insertTable('submit', $submit);
-		if($rs) {
-            $senData = new \stdClass();
-            $senData->openid = $submit->openid;
-            $senData->name = isset($submit->name) ? $submit->name : '';
-            $senData->phone = isset($submit->phone) ? $submit->phone : '';
-            $dates = $this->findQuotaById($submit->qid);
-            $shops = $this->findQuotaById($dates->fid);
-            $senData->date = $dates->name;
-            $senData->shop = $shops->name;
-            $this->sendMessage($senData);
-			return TRUE;
+		if($rid = $helper->insertTable('reservation', $submit)) {
+            $reservation = $this->findReservationByRid($rid);
+            $this->addUsed($reservation->item_id);
+            $reservationData = $this->normalizeReservationData($reservation);
+            if($reservationData) {
+                $sendData = new \stdClass();
+                $sendData->openid = $user->openid;
+                $sendData->name = $reservationData->name;
+                $sendData->phone = $reservationData->phone;
+                $sendData->date = $reservationData->date;
+                $sendData->shop = $reservationData->shop;
+                //$this->sendMessage($sendData);
+                return TRUE;
+            }
         }
 		return FALSE;
 	}
 
     // 预约成功 发送模版消息
-    public function sendMessage($senddata) 
+    public function sendMessage($sendData) 
     {
         $data = array(
-            'touser' => $senddata->openid,
+            'touser' => $sendData->openid,
             'template_id' => 'OGosN3rcb0KwyRfBXriyPIJdc4dtf5P5qpGt635_FUU',
             'url' => 'http://minnie.coach.samesamechina.com/qrcode',
             'topcolor' => '#000000',
@@ -197,11 +184,11 @@ class HelpLib
                     'color' => '#000000'
                 ),
                 'keyword1' => array(
-                    'value' => $senddata->name,
+                    'value' => $sendData->name,
                     'color' => '#000000'
                 ),
                 'keyword2' => array(
-                    'value' => $senddata->phone,
+                    'value' => $sendData->phone,
                     'color' => '#000000'
                 ),
                 'keyword3' => array(
@@ -209,11 +196,11 @@ class HelpLib
                     'color' => '#000000'
                 ),
                 'keyword4' => array(
-                    'value' => $senddata->date,
+                    'value' => $sendData->date,
                     'color' => '#000000'
                 ),
                 'keyword5' => array(
-                    'value' => $senddata->shop,
+                    'value' => $sendData->shop,
                     'color' => '#000000'
                 ),
                 'remark' => array(

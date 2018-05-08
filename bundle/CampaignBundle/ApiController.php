@@ -22,21 +22,45 @@ class ApiController extends Controller
         } 
     }
 
-    // 查询预约场次列表
     public function quotaAction()
     {
-        $data = [];
-        $help = new HelpLib();
-        $shopQuota = $help->findShopQuota();
-        $quota = [];
-        if(!empty($shopQuota)) {
-            foreach ($shopQuota as $k => $v) {
-                $quota[$k]['shop'] = $v['name'];
-                $dateQuota = $help->findDateQuota($v['id']);
-                $quota[$k]['date'] = $dateQuota;
+        $help = new HelpLib();  
+        $reservationRawList = $help->getReservationList();
+        $reservationList = [];
+        if(!empty($reservationRawList)) {
+            $i = 0;
+            $now = date('H:i:s');
+            foreach ($reservationRawList as $key => $value) {
+                $reservationList[$value['name']][$key]['date'] = $value['date'];
+                $reservationList[$value['name']][$key]['time'] = $value['title'];
+                $reservationList[$value['name']][$key]['tid'] = $value['id'];
+
+                if($now >= $value['start'] && $now < $value['end'] && ($value['quota'] - $value['used']) > 0)
+                    $reservationList[$value['name']][$key]['has_quota'] =  true;
+                else
+                    $reservationList[$value['name']][$key]['has_quota'] =  false;
             }
         }
-        $this->dataPrint($quota);
+        $this->dataPrint($reservationList);
+    }
+
+    public function checkinAction()
+    {
+        global $user;
+        $jsonData = file_get_contents("php://input"); 
+        $apiData = json_decode($jsonData);
+        if(is_null($apiData)) {
+            $this->statusPrint('301', 'API参数不是json格式！');
+        }
+        if(empty($apiData->code)) {
+            $this->statusPrint('302', 'code is empty');
+        }
+        if($apiData->code != CHECKIN_CODE) {
+            $this->statusPrint('303', 'code is wrong');
+        }
+        $help = new HelpLib();  
+        $help->checkin($user->uid);
+        $this->dataPrint(200);
     }
 
     // 预约提交
@@ -47,33 +71,33 @@ class ApiController extends Controller
     public function submitAction()
     {
         global $user;
-        $help = new HelpLib();
-
         $jsonData = file_get_contents("php://input"); 
         $apiData = json_decode($jsonData);
         if(is_null($apiData)) {
             $this->statusPrint('101', 'API参数不是json格式！');
         }
 
-        if(!$apiData->qid) {
+        if(!$apiData->id) {
             $this->statusPrint('102', '预约场次不能为空！');
         }
 
+        $help = new HelpLib();
+
         // 是否已经预约过
-        if($help->isSubmit($user->openid)) {
+        if($help->findReservationByUid($user->uid)) {
             $this->statusPrint('103', '您已经预约过！');
         }
 
         // 场次名额是否还有
-        if(!$help->hasQuota($apiData->qid)) {
+        if(!$help->hasQuota($apiData->id)) {
             $this->statusPrint('104', '预约名额已经全部预约完！');
         }
 
-        $apiData->openid = $user->openid;
-    	if(!$help->submit($apiData)) {
-            $this->statusPrint('105', '预约失败！');
+    	if($help->submit($apiData)) {
+            $this->statusPrint('200', '预约成功！');
         }
 
-        $this->statusPrint('10', '预约成功！');
+        $this->statusPrint('105', '预约失败！');
+        
     }
 }

@@ -21,18 +21,21 @@
         <div class="logo-brand"></div>   
 
         <div class="reserve-success">
-            <?php if($applys['status'] == 1) { ?>
+            <?php if($status == 200): ?>
                 <div class="success-theme">
                     预约成功
                 </div>
                 <div class="success-text">
-                    亲爱的<?php echo $applys['name'];?> <br />
-                    <?php echo $applys['date'];?>，<?php echo $applys['shop'];?>店铺期待您的莅临！
+                    亲爱的<?php print $item->name;?> <br />
+                    <?php print $item->date;?>，<?php print $item->shop;?>店铺期待您的莅临！
                 </div>
-            <?php } else {?>
+            <?php endif;?>
+            <?php if($status == 0): ?>
                 <div class="success-text"> 您还未预约当前！<!-- 预约活动已结束！ --></div>
-            <?php }?>
-
+             <?php endif;?>
+            <?php if($status == 1): ?>
+                <div class="success-text"> 您已经核销！<!-- 预约活动已结束！ --></div>
+             <?php endif;?>
             
         </div>
         
