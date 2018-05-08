@@ -29,16 +29,21 @@ class ApiController extends Controller
         $reservationList = [];
         if(!empty($reservationRawList)) {
             $i = 0;
+            $name = '';
             $now = date('H:i:s');
-            foreach ($reservationRawList as $key => $value) {
-                $reservationList[$value['name']][$key]['date'] = $value['date'];
-                $reservationList[$value['name']][$key]['time'] = $value['title'];
-                $reservationList[$value['name']][$key]['id'] = $value['id'];
-
+            foreach ($reservationRawList as $value) {
+                if($name && $value['name'] != $name) {
+                    $i = 0;
+                }
+                $reservationList[$value['name']][$i]['date'] = $value['date'];
+                $reservationList[$value['name']][$i]['time'] = $value['title'];
+                $reservationList[$value['name']][$i]['id'] = $value['id'];
                 if($now >= $value['start'] && $now < $value['end'] && ($value['quota'] - $value['used']) > 0)
-                    $reservationList[$value['name']][$key]['has_quota'] =  true;
+                    $reservationList[$value['name']][$i]['has_quota'] =  true;
                 else
-                    $reservationList[$value['name']][$key]['has_quota'] =  false;
+                    $reservationList[$value['name']][$i]['has_quota'] =  false;
+                $name = $value['name'];
+                $i++;
             }
         }
         $this->dataPrint($reservationList);
