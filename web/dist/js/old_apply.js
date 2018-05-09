@@ -33,6 +33,7 @@ reserveBtn.addEventListener("click", function(){
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();
         // console.log(checkFuc);
+        reserveBtn.className = 'btn disabled isloading';
         submitForm({ id: checkFuc[1] });
     }
     
