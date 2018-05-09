@@ -29,36 +29,28 @@
                     亲爱的<?php print $item->name;?> <br />
                     <?php print $item->date;?>，<?php print $item->shop;?>店铺期待您的莅临！
                 </div>
+                
+                <div class="codeConfirm">
+                  <input type="number" maxlength="3" class="checkInCode">
+                  <a href="javascript:void(o);" class="checkinBtn">打卡</a>
+                </div>
             <?php endif;?>
+            
+            
+
             <?php if($status == 0): ?>
                 <div class="success-text"> 您还未预约当前！<!-- 预约活动已结束！ --></div>
-             <?php endif;?>
+            <?php endif;?>
             <?php if($status == 1): ?>
                 <div class="success-text"> 您已经核销！<!-- 预约活动已结束！ --></div>
-             <?php endif;?>
+            <?php endif;?>
             
         </div>
         
     </div>
 
 </section>
-<script type="text/javascript">
-    wx.ready(function(){
-        /* ----------- 禁用分享 开始 ----------- */
-        wx.hideMenuItems({
-          menuList: [
-            'menuItem:share:appMessage', // 分享到朋友
-            'menuItem:share:timeline', // 分享到朋友圈
-            'menuItem:copyUrl' // 复制链接
-          ],
-          success: function (res) {
-            // alert('已隐藏“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
-          },
-          fail: function (res) {
-              //alert(JSON.stringify(res));
-          }
-        });
-    });
-</script>
+<script src="/web/build/js/common.js"></script>
+<script src="/web/build/js/checkin.js"></script>
 </body>
 </html>

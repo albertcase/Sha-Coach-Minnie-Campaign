@@ -1,6 +1,8 @@
 var int, count = 10, countdownEl = document.querySelector('.countdown');
 
 
+queryQuotaData();
+
 
 // 倒计时
 var cdStatus = 0;
@@ -58,7 +60,7 @@ reserveBtn.addEventListener("click", function(){
         if(!reg.test(checkFuc[1])){
             formErrorTips('手机号码输入有误！');
         }else{
-            var subdate = { qid: checkFuc[3], name: checkFuc[0], phone: checkFuc[1] };
+            var subdate = { id: checkFuc[3], name: checkFuc[0], phone: checkFuc[1] };
             // console.log(subdate);
             submitForm(subdate);
         }

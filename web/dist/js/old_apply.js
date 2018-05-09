@@ -1,4 +1,7 @@
 
+queryQuotaData();
+
+
 
 // 表单输入框失去焦点事件监测
 var ftli = document.querySelectorAll('.form-blur');
@@ -30,7 +33,7 @@ reserveBtn.addEventListener("click", function(){
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();
         // console.log(checkFuc);
-        submitForm({ qid: checkFuc[1] });
+        submitForm({ id: checkFuc[1] });
     }
     
 }, false);

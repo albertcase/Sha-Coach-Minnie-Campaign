@@ -43,6 +43,24 @@ html, body {
 }
 
 
+.applyStatus{
+    width: 100%;
+    // padding: 90% 0 0 0; 
+    height: 100%;
+    position: fixed;
+    background: rgba(255,255,255,0.76);
+    left: 0;
+    top: 0;
+    z-index: 6;
+    p{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 50%;
+        @include fontDpr(38);
+    }
+}
+
 
 
 [data-page = "index"] {
@@ -51,18 +69,6 @@ html, body {
     background: #dbaab5 url('../img/footer.png') center bottom no-repeat;
     background-size: contain;
     text-align: center;
-
-    .applyStatus{
-        width: 100%;
-        padding: 90% 0 0 0; 
-        height: 100%;
-        position: fixed;
-        background: rgba(255,255,255,0.76);
-        left: 0;
-        top: 0;
-        z-index: 6;
-        @include fontDpr(38);
-    }
 
     .logo{
         width: rem(236);
@@ -109,6 +115,7 @@ html, body {
                 select{
                     width: 100%;
                     height: 100%;
+                    background: none;
                     position: absolute;
                     left: 0;
                     top: 0;
@@ -118,6 +125,7 @@ html, body {
                 input{
                     width: 90%;
                     height: 100%;
+                    background: none;
                     text-align: left;
                     @include fontDpr(32);
                 }
@@ -167,7 +175,7 @@ html, body {
         width: 100%;
         margin: rem(80) 0;
         .success-theme{
-            padding: rem(50) 0;
+            padding: rem(40) 0;
             @include fontDpr(44);
             position: relative;
             &:after{
@@ -189,6 +197,32 @@ html, body {
             @include fontDpr(36);
             padding: 0 rem(60);
             display: inline-block;
+        }
+
+        .codeConfirm{
+            width: rem(282);
+            padding: rem(5);
+            margin: rem(60) 0 0 0;
+            background: #8a6269;
+            display: inline-block;
+            @include fontDpr(36);
+            input{
+                width: rem(112);
+                height: rem(80);
+                padding: 0 rem(6);
+                text-align: center;
+                line-height: rem(80);
+                color: #8a6269;
+                float: left;
+                display: inline-block;
+            }
+            a{
+                width: rem(136);
+                height: rem(80);
+                color: #fff;
+                line-height: rem(80);
+                display: inline-block;
+            }
         }
     }
 
