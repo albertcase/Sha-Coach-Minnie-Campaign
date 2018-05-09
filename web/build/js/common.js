@@ -13,7 +13,6 @@ var shareData = {
     //"_url": encodeURIComponent(window.location.href)//encodeURIComponent(window.location.href.split("#")[0]) //.replace('http%3A%2F%2F','')
 }
 
-//function wxshareFun(){  //分享信息重置函数
 // wx.config({"debug": true}); 
 wx.ready(function(){
 
@@ -60,32 +59,6 @@ wx.ready(function(){
         }
     });
 });
-//}
-
-
-
-
-
-/* 
- * 微信分享禁用 
- */
-// wx.ready(function(){
-//     /* ----------- 禁用分享 开始 ----------- */
-//     wx.hideMenuItems({
-//       menuList: [
-//         'menuItem:share:appMessage', // 分享到朋友
-//         'menuItem:share:timeline', // 分享到朋友圈
-//         'menuItem:copyUrl' // 复制链接
-//       ],
-//       success: function (res) {
-//         // alert('已隐藏“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
-//       },
-//       fail: function (res) {
-//           //alert(JSON.stringify(res));
-//       }
-//     });
-// });
-
 
 
 
@@ -133,3 +106,31 @@ function ajax(method, url, data, callback) {
     request.send(data);
 }
 
+
+
+/* 
+ * 微信默认下拉事件禁用
+ * https://github.com/sixwinds/blog/issues/17
+ */
+ 
+var wrapper = document.getElementById( 'wrapper' );
+var touchstartY;
+
+wrapper.addEventListener( 'touchstart', function (ev) {
+    var events = ev.touches[ 0 ] || ev;
+    touchstartY = events.clientY;
+}, false );
+
+wrapper.addEventListener( 'touchmove', function (ev) {
+    var events = ev.touches[ 0 ] || ev;
+    var scrollTop = wrapper.scrollTop,
+        offsetHeight = wrapper.offsetHeight,
+        scrollHeight = wrapper.scrollHeight;
+    if ( events.clientY > touchstartY && (wrapper.scrollTop === 0) ) {
+    // 下拉时并且页面已经到顶部时
+      ev.preventDefault();
+    } else if ( events.clientY < touchstartY && (scrollTop + offsetHeight >= scrollHeight) ) {
+    // 上拉时并且页面已经到底部时
+      ev.preventDefault();
+    }
+}, false );
