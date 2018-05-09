@@ -163,7 +163,7 @@ class HelpLib
                 $sendData->phone = $reservationData->phone;
                 $sendData->date = $reservationData->date;
                 $sendData->shop = $reservationData->shop;
-                //$this->sendMessage($sendData);
+                $this->sendMessage($sendData);
                 return TRUE;
             }
         }
