@@ -5,11 +5,24 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="yes" name="apple-touch-fullscreen">
     <meta content="telephone=no,email=no" name="format-detection">
-    <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Coach蔻驰</title>
-    <link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
 </head>
+<link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
+<!-- 引入适配方案-->
+<script src="/web/lib/lib-flexible/flexible.js"></script>
+<script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 <body>
-	<div class="applyStatus"><p>活动已经结束!</p></div>
+<!--http://fakeimg.pl/30x40-->
+<section data-page="index">
+
+    <div class="logo"></div>
+
+    <div class="form-reserve clearfix">
+        <div class="logo-brand"></div> 
+        <div class="reserve-success">
+        	 <div class="success-text">活动已经结束!</div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
