@@ -14,6 +14,6 @@ checkinBtn.addEventListener("click", function(){
 function submitForm(data){
     ajax('POST', '/api/checkin', data, function(result){
         formErrorTips(result.msg);
-        // window.location.reload();
+        window.location.reload();
     });
 }

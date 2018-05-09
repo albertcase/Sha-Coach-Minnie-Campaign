@@ -34,6 +34,10 @@
                   <input type="number" maxlength="3" class="checkInCode">
                   <a href="javascript:void(o);" class="checkinBtn">打卡</a>
                 </div>
+
+                <script src="/web/build/js/common.js"></script>
+                <script src="/web/build/js/checkin.js"></script>
+
             <?php endif;?>
             
             
@@ -50,7 +54,6 @@
     </div>
 
 </section>
-<script src="/web/build/js/common.js"></script>
-<script src="/web/build/js/checkin.js"></script>
+
 </body>
 </html>
