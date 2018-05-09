@@ -132,9 +132,9 @@ class HelpLib
 
     public function checkin($uid)
     {
-        $sql = "UPDATE `reservation` SET checkin = 1 WHERE `uid` = :uid";
+        $sql = "UPDATE `reservation` SET checkin = 1 AND updated = :nowtime WHERE `uid` = :uid";
         $query = $this->_pdo->prepare($sql);    
-        return $query->execute([':uid' => $uid]);
+        return $query->execute([':uid' => $uid, ':nowtime' => NOWTIME]);
     }
 
     // 预约
