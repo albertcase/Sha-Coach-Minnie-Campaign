@@ -47,7 +47,7 @@ class HelpLib
     public function getReservationList() 
     {
         $date = date('Y-m-d');
-        $sql = "SELECT s.name, i.date, t.title, i.used, i.quota, t.id, t.start, t.end FROM items i 
+        $sql = "SELECT s.name, i.date, t.title, i.used, i.quota, i.id, t.start, t.end FROM items i 
         LEFT JOIN store s on s.id = i.sid
         LEFT JOIN times t on t.id = i.tid
         WHERE i.date >= :date 
