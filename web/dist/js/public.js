@@ -69,6 +69,25 @@ function ajax(method, url, data, callback) {
 
 
 
+/* 
+ * 获取api数据
+ */
+var dataPackage;
+function queryQuotaData(){
+    ajax('GET', '/api/quota', {}, function(result){
+        // for (x in result){
+        //     console.log(result[x], x);
+        // }
+        dataPackage = new DataPackage(result)
+        dataPackage.getShop();
+    });
+}
+
+queryQuotaData();
+
+
+
+var queryData = {};
 
 
 
@@ -76,35 +95,47 @@ function ajax(method, url, data, callback) {
  * 店铺和日期选项数据获取,输出
  */
 
-function DataPackage(){
+function DataPackage(data){
     this.getShop = function(){
         var shopHTML = ['<option>店铺 / SHOP</option>'], selectShop = document.querySelector('.select-shop');
-        for(var i = 0; i < queryData.length; i++){
-            shopHTML.push('<option>'+ queryData[i].shop +'</option>');
+        for (x in data){
+            shopHTML.push('<option>'+ x +'</option>');
         }
         selectShop.innerHTML = shopHTML.join('');
     }
 
     this.getDate = function(val){
-
         var dateHTML = ['<option>日期 / DATE</option>'], selectDate = document.querySelector('.select-date');
-        for(var b = 0; b < queryData.length; b++){
-            var timeArr = queryData[b].date;
-            if(queryData[b].shop == val){
-                for(var a = 0; a < timeArr.length; a++){
-                    if(timeArr[a].has_quota){
-                        dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
+        // console.log(data);
+        for (x in data){
+            if(x === val){
+                var curAllData = data[x];
+                // console.log(data[x]);
+                for(var a = 0; a < curAllData.length; a++){
+                    if(curAllData[a].has_quota){
+                        dateHTML.push('<option value="'+ curAllData[a].id +'">'+ (curAllData[a].date + ' ' + curAllData[a].time)  +'</option>');
                     }  
                 }
                 selectDate.innerHTML = dateHTML.join('');
-            };
-        }     
+            }
+        }
+
+        // for(var b = 0; b < queryData.length; b++){
+        //     var timeArr = queryData[b].date;
+        //     if(queryData[b].shop == val){
+        //         for(var a = 0; a < timeArr.length; a++){
+        //             if(timeArr[a].has_quota){
+        //                 dateHTML.push('<option value="'+ timeArr[a].id +'">'+ timeArr[a].name +'</option>');
+        //             }  
+        //         }
+        //         selectDate.innerHTML = dateHTML.join('');
+        //     };
+        // }     
     }
 }
 
 
-var dataPackage = new DataPackage()
-dataPackage.getShop();
+
 
 
 
@@ -156,6 +187,17 @@ function check(){
     }
     return fromData;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
