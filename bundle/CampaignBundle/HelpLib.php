@@ -34,7 +34,7 @@ class HelpLib
 	// 检查是否为预先导入的openid
 	public function isOldOpenid($openid)
 	{
-		$sql = "SELECT `id`, `openid` FROM `old_user` WHERE `openid` = :openid";
+		$sql = "SELECT `openid` FROM `old_user` WHERE `openid` = :openid";
         $query = $this->_pdo->prepare($sql);    
         $query->execute([':openid' => $openid]);
         $row = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -163,7 +163,7 @@ class HelpLib
                 $sendData->phone = $reservationData->phone;
                 $sendData->date = $reservationData->date;
                 $sendData->shop = $reservationData->shop;
-                //$this->sendMessage($sendData);
+                $this->sendMessage($sendData);
                 return TRUE;
             }
         }
