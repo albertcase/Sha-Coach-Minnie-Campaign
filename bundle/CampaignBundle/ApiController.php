@@ -67,7 +67,7 @@ class ApiController extends Controller
         }
         $help = new HelpLib();  
         $help->checkin($user->uid);
-        $this->dataPrint(200);
+        $this->statusPrint(200);
     }
 
     // 预约提交
