@@ -1,7 +1,7 @@
 var shareData = {
-    "_title": '来自Minnie的VIP专属邀请函 摘要：欢聚排队等你来参与', //分享标题
-    "_desc": "来自Minnie的VIP专属邀请函，等你来",    // 分享朋友圈的描述
-    "_desc_friend": "来自Minnie的VIP专属邀请函，等你来",    // 分享好友的描述
+    "_title": '来自Minnie的VIP专属邀请函', //分享标题
+    "_desc": "欢聚派队等你来参与",    // 分享朋友圈的描述
+    "_desc_friend": "欢聚派队等你来参与",    // 分享好友的描述
     "_link": window.location.origin + '/apply',    //分享的连接
     "_imgUrl": window.location.origin + "/web/build/img/share.jpg",   //分享的图片
     "_shareAppMessageCallback": function(){
