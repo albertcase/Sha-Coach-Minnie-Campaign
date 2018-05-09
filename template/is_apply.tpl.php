@@ -25,5 +25,6 @@
 	</div>
 
 </section>
+<script src="/web/build/js/common.js"></script>
 </body>
 </html>

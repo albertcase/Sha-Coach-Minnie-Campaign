@@ -5,6 +5,8 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="yes" name="apple-touch-fullscreen">
     <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="screen-orientation" content="portrait">
     <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Coach蔻驰</title>
 </head>
