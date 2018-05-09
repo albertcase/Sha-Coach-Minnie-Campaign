@@ -67,4 +67,4 @@ define("LAUNCH_DATE", '[
 	"2018-05-10 23:59:59"
 ]');
 
-define("CHECKIN_CODE", '1942');
+define("CHECKIN_CODE", '520');
