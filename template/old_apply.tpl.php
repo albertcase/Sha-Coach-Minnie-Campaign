@@ -58,6 +58,7 @@
 
 </section>
 
+<script src="/web/build/js/common.js"></script>
 <script src="/web/build/js/public.js"></script>
 <script src="/web/build/js/old_apply.js"></script>
 

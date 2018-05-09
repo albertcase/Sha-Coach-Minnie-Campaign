@@ -83,6 +83,7 @@
     </div>
 
 </section>
+<script src="/web/build/js/common.js"></script>
 <script src="/web/build/js/public.js"></script>
 <script src="/web/build/js/apply.js"></script>
 
