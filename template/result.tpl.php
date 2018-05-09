@@ -31,7 +31,7 @@
                     </div>
                     
                     <div class="codeConfirm">
-                      <input type="number" maxlength="3" class="checkInCode">
+                      <input type="tel" maxlength="3" class="checkInCode">
                       <a href="javascript:void(o);" class="checkinBtn">打卡</a>
                     </div>
 
