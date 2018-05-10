@@ -63,7 +63,7 @@ class UserAPI extends Base {
     if(USER_STORAGE == 'COOKIE') {
       $request = new Request();
       $user = $this->userFinalizeDataNormalize($user);
-      setcookie('_user', $this->encodeUser($user), time() + 3600 * 24 * 100, '/', $request->getDomain());
+      setcookie('_user', $this->encodeUser($user), time() + 3600 * 24 * 10, '/', $request->getHost());
     } else {
       $_SESSION['_user'] = json_encode($user);
     }
