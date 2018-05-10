@@ -596,7 +596,7 @@ textarea::-webkit-input-placeholder {
     opacity: 0.2; }
   [data-page="index"] .reserve-success {
     width: 100%;
-    margin: 1.06667rem 0; }
+    margin: 0.89333rem 0; }
     [data-page="index"] .reserve-success .success-theme {
       padding: 0.53333rem 0;
       font-size: 19px;
