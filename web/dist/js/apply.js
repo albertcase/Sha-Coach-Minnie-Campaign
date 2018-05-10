@@ -53,7 +53,7 @@ for (var i = 0; i < ftli.length; i++){
 
 
 var reg = /^1\d{10}$/;
-reserveBtn.addEventListener("click", function(){
+reserveBtn.addEventListener("touchstart", function(){
 
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();

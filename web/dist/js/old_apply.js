@@ -28,7 +28,7 @@ for (var i = 0; i < ftli.length; i++){
 
 
 
-reserveBtn.addEventListener("click", function(){
+reserveBtn.addEventListener("touchstart", function(){
 
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();
