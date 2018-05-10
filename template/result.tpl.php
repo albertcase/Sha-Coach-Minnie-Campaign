@@ -42,7 +42,7 @@ var _hmt = _hmt || [];
                     
                     <div class="codeConfirm">
                       <input type="tel" maxlength="3" class="checkInCode">
-                      <a href="javascript:void(o);" class="checkinBtn">打卡</a>
+                      <a href="javascript:void(0);" class="checkinBtn">打卡</a>
                     </div>
 
                     <script src="/web/build/js/common.js"></script>

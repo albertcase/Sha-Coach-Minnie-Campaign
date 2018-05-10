@@ -613,7 +613,7 @@ textarea::-webkit-input-placeholder {
         font-size: 76px; }
       [data-page="index"] .reserve-success .success-theme:after {
         width: 1.6rem;
-        height: 2px;
+        height: 4px;
         overflow: hidden;
         background: #000;
         content: "";
