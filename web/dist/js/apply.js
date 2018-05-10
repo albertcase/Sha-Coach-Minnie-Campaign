@@ -72,7 +72,9 @@ reserveBtn.addEventListener("touchstart", function(){
 
 function submitForm(data){
     ajax('POST', '/api/submit', data, function(result){
-        formErrorTips(result.msg);
+        if(status == 200){
+            formErrorTips('数据提交成功！');
+        }
         window.location.reload();
     });
 }

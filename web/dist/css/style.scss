@@ -26,7 +26,7 @@ html, body {
 #wrapper{
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     position: absolute;
     left: 0;
     top: 0;
@@ -279,7 +279,7 @@ html, body {
             background: #fff;
             padding: rem(110) rem(53) rem(80) rem(53);
             display: inline-block;
-            @include fontDpr(34);
+            @include fontDpr(32);
             line-height: rem(52);
             text-align: left;
             position: relative;
