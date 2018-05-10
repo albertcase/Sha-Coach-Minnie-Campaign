@@ -28,11 +28,12 @@ for (var i = 0; i < ftli.length; i++){
 
 
 
-reserveBtn.addEventListener("click", function(){
+reserveBtn.addEventListener("touchstart", function(){
 
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();
         // console.log(checkFuc);
+        reserveBtn.className = 'btn disabled isloading';
         submitForm({ id: checkFuc[1] });
     }
     

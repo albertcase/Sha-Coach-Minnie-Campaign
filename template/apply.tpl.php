@@ -17,74 +17,76 @@
 <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 
 <body>
+<div id="wrapper">
 
-<section data-page="index">
+    <section data-page="index">
 
 
-    <div class="rule-pup">
-        <div class="rule-con">
-            <a href="javascript:void(0);" class="close"></a>
-            COACH将收集您的个人资料以便管理和提
-            升顾客体验，并向您提供有关COACH商
-            品和服务的信息、COACH活动邀请、
-            COACH（或与合作方协作）于本地或海外
-            进行的优惠及市场推广活动信息或进行统
-            计和调查活动。COACH为了上述目的可能
-            会将您的个人资料透露、发送给于本地或
-            海外的关联机构或其他相关机构，或与之
-            共享。您可自愿选择是否提供以上个人资
-            料。若您需要查看、更改或删除您的个人资料，请联系<a href="mailto:contactus@coach.com">contactus@coach.com</a>
+        <div class="rule-pup">
+            <div class="rule-con">
+                <a href="javascript:void(0);" class="close"></a>
+                COACH将收集您的个人资料以便管理和提
+                升顾客体验，并向您提供有关COACH商
+                品和服务的信息、COACH活动邀请、
+                COACH（或与合作方协作）于本地或海外
+                进行的优惠及市场推广活动信息或进行统
+                计和调查活动。COACH为了上述目的可能
+                会将您的个人资料透露、发送给于本地或
+                海外的关联机构或其他相关机构，或与之
+                共享。您可自愿选择是否提供以上个人资
+                料。若您需要查看、更改或删除您的个人资料，请联系<a href="mailto:contactus@coach.com">contactus@coach.com</a>
+            </div>
         </div>
-    </div>
 
-    <div class="logo"></div>
+        <div class="logo"></div>
 
-    <div class="form-reserve clearfix">
-        <div class="logo-brand"></div>   
-        
-        <div class="form-table" id="form-1">
-            <ul>
-                 <li>
-                     <input type="text" name="name" data-error="姓名选项不能为空!" class="form-check form-blur form-name" placeholder="姓名 / NAME">
-                 </li>
-                 <li>
-                     <input type="tel" maxlength="11" data-error="手机号码输入有误！" name="tel" class="form-check form-blur form-tel" placeholder="手机 / MOBIlE PHONE">
-                 </li>
-                 <li class="selectArr">
-                     <span></span>
-                     <select name="shop" class="form-blur select-shop">
-                         <!-- <option>店铺 / SHOP</option>
-                         <option>上海</option>
-                         <option>北京</option>
-                         <option>深圳</option> -->
-                     </select>
-                    <input type="text" name="shop" data-error="请选择您需要预约的店铺！" class="form-check form-shop" placeholder="店铺 / SHOP">
-                 </li>
-                 <li class="selectArr">
-                    <input type="hidden" name="data" data-error="请选择您需要预约的日期！" class="form-check select-date-value">
-                    <span></span>
-                    <select name="date" class="form-blur select-date" disabled>
-                         <option>日期 / DATE</option>
-                         <!-- <option>2017</option>
-                         <option>2016</option>
-                         <option>2015</option> -->
-                     </select>
-                     <input type="text" name="date" class="form-date" placeholder="日期 / DATE">
-                 </li>
-             </ul> 
-             <div class="pact">
-                 <a href="javascript:void(0)" class="pact-link"></a>
-             </div>
+        <div class="form-reserve clearfix">
+            <div class="logo-brand"></div>   
             
-            <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
-                 一键预约 <span class="countdown"></span>
-            </a>
+            <div class="form-table" id="form-1">
+                <ul>
+                     <li>
+                         <input type="text" name="name" data-error="姓名选项不能为空!" class="form-check form-blur form-name" placeholder="姓名 / NAME">
+                     </li>
+                     <li>
+                         <input type="tel" maxlength="11" data-error="手机号码输入有误！" name="tel" class="form-check form-blur form-tel" placeholder="手机 / MOBIlE PHONE">
+                     </li>
+                     <li class="selectArr">
+                         <span></span>
+                         <select name="shop" class="form-blur select-shop">
+                             <!-- <option>店铺 / SHOP</option>
+                             <option>上海</option>
+                             <option>北京</option>
+                             <option>深圳</option> -->
+                         </select>
+                        <input type="text" name="shop" data-error="请选择您需要预约的店铺！" class="form-check form-shop" placeholder="店铺 / SHOP">
+                     </li>
+                     <li class="selectArr">
+                        <input type="hidden" name="data" data-error="请选择您需要预约的日期！" class="form-check select-date-value">
+                        <span></span>
+                        <select name="date" class="form-blur select-date" disabled>
+                             <option>日期 / DATE</option>
+                             <!-- <option>2017</option>
+                             <option>2016</option>
+                             <option>2015</option> -->
+                         </select>
+                         <input type="text" name="date" class="form-date" placeholder="日期 / DATE">
+                     </li>
+                 </ul> 
+                 <div class="pact">
+                     <a href="javascript:void(0)" class="pact-link"></a>
+                 </div>
+                
+                <a href="javascript:void(0);" class="btn disabled" id="reserve-btn">
+                     一键预约 <span class="countdown"></span>
+                </a>
+            </div>
+
+
         </div>
 
-
-    </div>
-
-</section>
+    </section>
+</div>
 <script src="/web/build/js/common.js"></script>
 <script src="/web/build/js/public.js"></script>
 <script src="/web/build/js/apply.js"></script>

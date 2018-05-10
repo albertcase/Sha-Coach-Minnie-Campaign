@@ -1,4 +1,6 @@
 
+
+
 /* 
  * 获取api数据
  */
@@ -111,13 +113,6 @@ function check(){
     }
     return fromData;
 }
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 var checkinBtn = document.querySelector('.checkinBtn');
-checkinBtn.addEventListener("click", function(){
+checkinBtn.addEventListener("touchstart", function(){
     var checkInCode = document.querySelector('.checkInCode').value;
 
     if(!checkInCode || checkInCode.length < 3){

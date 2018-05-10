@@ -17,11 +17,21 @@ li {
 html, body {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 @import "public";
 @import "reset";
 
+#wrapper{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
 
 
 /*****************************
@@ -57,7 +67,7 @@ html, body {
         width: 100%;
         text-align: center;
         top: 50%;
-        @include fontDpr(38);
+        @include fontDpr(32);
     }
 }
 
@@ -149,11 +159,25 @@ html, body {
             line-height: rem(30);
             padding: rem(30) rem(40);
             color: #fff;
-            @include fontDpr(36);
+            @include fontDpr(32);
             background: #000;
             display: inline-block;
             margin: rem(20) 0 0 0;
             position: relative;
+            &.isloading{
+                &:before{
+                    width: 100%;
+                    height: 100%;
+                    line-height: rem(90);
+                    content: '数据提交中...';
+                    background: rgba(0,0,0, .8);
+                    position: absolute;
+                    @include fontDpr(32);
+                    left: 0;
+                    top: 0;
+                    z-index: 5;
+                }
+            }
             &:after{
                 width: rem(13);
                 height: rem(30);
@@ -176,11 +200,11 @@ html, body {
         margin: rem(80) 0;
         .success-theme{
             padding: rem(40) 0;
-            @include fontDpr(44);
+            @include fontDpr(38);
             position: relative;
             &:after{
                 width: rem(120);
-                height: 4px;
+                height: 2px;
                 overflow: hidden;
                 background: #000;
                 content: "";
@@ -194,7 +218,7 @@ html, body {
         .success-text{
             margin: rem(50) 0 0 0;
             line-height: rem(60);
-            @include fontDpr(36);
+            @include fontDpr(34);
             padding: 0 rem(60);
             display: inline-block;
         }
@@ -205,7 +229,7 @@ html, body {
             margin: rem(60) 0 0 0;
             background: #8a6269;
             display: inline-block;
-            @include fontDpr(36);
+            @include fontDpr(34);
             input{
                 width: rem(112);
                 height: rem(80);
@@ -255,7 +279,7 @@ html, body {
             background: #fff;
             padding: rem(110) rem(53) rem(80) rem(53);
             display: inline-block;
-            @include fontDpr(26);
+            @include fontDpr(34);
             line-height: rem(52);
             text-align: left;
             position: relative;

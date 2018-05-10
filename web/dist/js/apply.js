@@ -53,13 +53,14 @@ for (var i = 0; i < ftli.length; i++){
 
 
 var reg = /^1\d{10}$/;
-reserveBtn.addEventListener("click", function(){
+reserveBtn.addEventListener("touchstart", function(){
 
     if(reserveBtn.className.indexOf('disabled') == -1){
         var checkFuc = check();
         if(!reg.test(checkFuc[1])){
             formErrorTips('手机号码输入有误！');
         }else{
+            reserveBtn.className = 'btn disabled isloading';
             var subdate = { id: checkFuc[3], name: checkFuc[0], phone: checkFuc[1] };
             // console.log(subdate);
             submitForm(subdate);
