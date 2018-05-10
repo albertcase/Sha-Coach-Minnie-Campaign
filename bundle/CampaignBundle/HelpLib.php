@@ -164,7 +164,7 @@ class HelpLib
                 $sendData->date = $reservationData->date;
                 $sendData->shop = $reservationData->shop;
                 $this->sendMessage($sendData);
-                return TRUE;
+                return $reservationData;
             }
         }
 		return FALSE;
