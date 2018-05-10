@@ -79,7 +79,7 @@ function formErrorTips(alertNodeContext){
     }
     alertInt = setTimeout(function(){
         alertEvent = document.querySelector('.alertNode');
-        alertEvent.remove();
+        alertEvent && alertEvent.remove();
     },1600);
 }
 
