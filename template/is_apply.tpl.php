@@ -27,7 +27,10 @@ var _hmt = _hmt || [];
     <section data-page="index">
 
         <div class="logo"></div>
-
+<?php print $data->name;?>
+<?php print $data->phone;?>
+<?php print $data->date;?>
+<?php print $data->shop;?>
         <div class="form-reserve clearfix">
             <div class="logo-brand"></div> 
             <div class="reserve-success">

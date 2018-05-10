@@ -100,8 +100,8 @@ class ApiController extends Controller
             $this->statusPrint('104', '预约名额已经全部预约完！');
         }
 
-    	if($help->submit($apiData)) {
-            $this->statusPrint('200', '预约成功！');
+    	if($re = $help->submit($apiData)) {
+            $this->dataPrint(['status' => 200, 'data' => $re]);
         }
 
         $this->statusPrint('105', '预约失败！');
