@@ -471,6 +471,12 @@ textarea::-webkit-input-placeholder {
     background: #dbaab5 url("../img/logo.png") center no-repeat;
     background-size: contain;
     display: inline-block; }
+  [data-page="index"] .section {
+    display: inline-block;
+    visibility: visible; }
+    [data-page="index"] .section.hide {
+      display: none;
+      visibility: hidden; }
   [data-page="index"] .form-reserve {
     margin: 0.26667rem 0 0 0;
     padding: 0 0 0.4rem 0; }

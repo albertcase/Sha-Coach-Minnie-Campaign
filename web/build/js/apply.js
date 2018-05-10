@@ -72,12 +72,28 @@ reserveBtn.addEventListener("touchstart", function(){
 
 function submitForm(data){
     ajax('POST', '/api/submit', data, function(result){
-        if(status == 200){
+        if(result.status == 200){
             formErrorTips('数据提交成功！');
+            submitSuccess(result.data.name, result.data.date, result.data.shop);
         }
-        window.location.reload();
+        // window.location.reload();
     });
 }
+
+
+
+// function submitSuccess(name, date, shop){
+//     document.getElementById('form').className += ' hide';
+//     document.getElementById('result').className = 'section reserve-success';
+
+//     var successText = '亲爱的'+ name +' <br />'+ date +'，'+ shop +'店铺期待您的莅临！';
+//     document.querySelector('.success-text').innerHTML = successText;
+// }
+
+
+
+
+
 
 
 

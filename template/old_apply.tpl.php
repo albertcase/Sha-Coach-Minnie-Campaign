@@ -31,7 +31,7 @@ var _hmt = _hmt || [];
         <div class="form-reserve clearfix">
             <div class="logo-brand"></div>   
 
-            <div class="form-table">
+            <div class="section form-table" id="form">
                 <ul>
                      <li class="selectArr">
                         <span></span>
@@ -62,6 +62,18 @@ var _hmt = _hmt || [];
                  </a>
                  
             </div>
+
+
+            <div class="section reserve-success hide" id="result">
+                <div class="success-theme">
+                            您已成功预约!
+                </div>
+                <div class="success-text">
+                    ...
+                </div>
+            </div>
+
+
             
         </div>
 

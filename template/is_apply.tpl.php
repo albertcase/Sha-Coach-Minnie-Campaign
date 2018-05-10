@@ -27,14 +27,17 @@ var _hmt = _hmt || [];
     <section data-page="index">
 
         <div class="logo"></div>
-<?php print $data->name;?>
-<?php print $data->phone;?>
-<?php print $data->date;?>
-<?php print $data->shop;?>
+
         <div class="form-reserve clearfix">
             <div class="logo-brand"></div> 
             <div class="reserve-success">
-            	 <div class="success-text">您已成功预约!</div>
+               <div class="success-theme">
+                          您已成功预约!
+              </div>
+            	 <div class="success-text">
+                    亲爱的<?php print $data->name;?> <br />
+                    <?php print $data->date;?>，<?php print $data->shop;?>店铺期待您的莅临！
+                </div>
             </div>  
     	</div>
 

@@ -13,7 +13,10 @@ checkinBtn.addEventListener("touchstart", function(){
 
 function submitForm(data){
     ajax('POST', '/api/checkin', data, function(result){
-        formErrorTips(result.msg);
-        window.location.reload();
+        if(result.status == 200){
+            formErrorTips('打卡成功！');
+            document.querySelector('.codeConfirm').style.visibility = 'hidden';
+        }
+        // window.location.reload();
     });
 }
