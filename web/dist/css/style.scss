@@ -20,8 +20,9 @@ html, body {
     position: relative;
 }
 
-@import "public";
 @import "reset";
+@import "public";
+
 
 #wrapper{
     width: 100%;
