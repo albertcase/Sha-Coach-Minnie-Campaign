@@ -7,7 +7,7 @@
     <meta content="telephone=no,email=no" name="format-detection">
     <title>Coach蔻驰</title>
 </head>
-<link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
+<link href = "http://cdn.minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -19,7 +19,7 @@ var _hmt = _hmt || [];
 </script>
 
 <!-- 引入适配方案-->
-<script src="/web/lib/lib-flexible/flexible.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/lib/lib-flexible/flexible.js"></script>
 <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 
 <body>
@@ -79,9 +79,9 @@ var _hmt = _hmt || [];
 
     </section>
 </div>
-<script src="/web/build/js/common.js"></script>
-<script src="/web/build/js/public.js"></script>
-<script src="/web/build/js/old_apply.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/common.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/public.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/old_apply.js"></script>
 
 </body>
 </html>
