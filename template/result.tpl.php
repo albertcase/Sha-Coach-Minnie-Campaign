@@ -48,7 +48,6 @@ var _hmt = _hmt || [];
                     <div class="success-text">
                         亲爱的<?php print $item->name;?> <br />
                         <?php print $item->date;?><br />
-                        fdglkhjdflghjgdflhjfdlh
                         <?php print $item->shop;?>店铺期待您的莅临！
                     </div>
                     
