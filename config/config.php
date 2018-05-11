@@ -64,7 +64,7 @@ define("WECHAT_TOKEN_PREFIX", 'wechat:token:');
 
 define("LAUNCH_DATE", '[
 	"2018-05-01 00:00:00",
-	"2018-05-10 23:59:59"
+	"2018-05-12 23:59:59"
 ]');
 
 define("CHECKIN_CODE", '520');
