@@ -121,7 +121,7 @@ function submitSuccess(name, date, shop){
     document.getElementById('form').className += ' hide';
     document.getElementById('result').className = 'section reserve-success';
 
-    var successText = '亲爱的'+ name +' <br />'+ date +'，'+ shop +'店铺期待您的莅临！';
+    var successText = '亲爱的'+ name +' <br />'+ date +'<br />'+ shop +'店铺期待您的莅临！';
     document.querySelector('.success-text').innerHTML = successText;
 }
 
