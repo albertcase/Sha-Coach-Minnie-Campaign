@@ -187,7 +187,7 @@ class HelpLib
             'topcolor' => '#000000',
             'data' => array(
                 'first' => array(
-                    'value' => "尊敬的贵宾，您已成功预约Coach x Disney梦幻乐园，我们期待与你共度玩趣时尚的美妙时光。\n",
+                    'value' => "尊敬的贵宾，您已成功预约Coach x Disney嘉年华，我们期待与你共度玩趣时尚的美妙时光。\n",
                     'color' => '#000000'
                 ),
                 'keyword1' => array(
@@ -199,7 +199,7 @@ class HelpLib
                     'color' => '#000000'
                 ),
                 'keyword3' => array(
-                    'value' => 'Coach x Disney梦幻乐园',
+                    'value' => 'Coach x Disney嘉年华',
                     'color' => '#000000'
                 ),
                 'keyword4' => array(
