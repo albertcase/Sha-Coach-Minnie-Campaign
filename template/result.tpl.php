@@ -47,7 +47,8 @@ var _hmt = _hmt || [];
                     </div>
                     <div class="success-text">
                         亲爱的<?php print $item->name;?> <br />
-                        <?php print $item->date;?><br /><?php print $item->shop;?>店铺期待您的莅临！
+                        <?php print $item->date;?><br />
+                        <?php print $item->shop;?>店铺期待您的莅临！
                     </div>
                     
                     <div class="codeConfirm">
