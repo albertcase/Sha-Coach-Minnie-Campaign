@@ -163,7 +163,11 @@ class HelpLib
                 $sendData = new \stdClass();
                 $sendData->openid = $user->openid;
                 $sendData->name = $reservationData->name;
-                $sendData->phone = $reservationData->phone;
+                if(strpos($reservationData->phone, '****')) {
+                    $sendData->phone = $reservationData->phone;
+                } else {
+                    $sendData->phone = substr_replace($reservationData->phone, '****', 3, 4);
+                }
                 $sendData->date = $reservationData->date;
                 $sendData->shop = $reservationData->shop;
                 $this->sendMessage($sendData);
