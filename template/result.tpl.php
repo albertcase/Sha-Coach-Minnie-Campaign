@@ -7,7 +7,7 @@
     <meta content="telephone=no,email=no" name="format-detection">
     <title>Coach蔻驰</title>
 </head>
-<link href = "/web/build/css/style.css" rel="stylesheet" type="text/css">
+<link href = "http://cdn.minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -19,10 +19,20 @@ var _hmt = _hmt || [];
 </script>
 
 <!-- 引入适配方案-->
-<script src="/web/lib/lib-flexible/flexible.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/lib/lib-flexible/flexible.js"></script>
 <script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 <body>
 <div id="wrapper">
+    
+    <!-- 横屏代码 -->
+    <div id="orientLayer" class="mod-orient-layer">
+        <div class="mod-orient-layer__content">
+            <i class="icon mod-orient-layer__icon-orient"></i>
+            <div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏浏览<br><em>建议全程在wifi环境下观看</em></div>
+        </div>
+    </div>
+
+
     <section data-page="index">
 
         <div class="logo"></div>
@@ -65,6 +75,6 @@ var _hmt = _hmt || [];
 
     </section>
 </div>
-<script src="/web/build/js/common.js"></script>
+<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/common.js"></script>
 </body>
 </html>
