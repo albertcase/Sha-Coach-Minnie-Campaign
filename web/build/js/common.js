@@ -1,7 +1,7 @@
 var shareData = {
-    "_title": '来自Minnie的VIP专属邀请函', //分享标题
-    "_desc": "欢聚派队等你来参与",    // 分享朋友圈的描述
-    "_desc_friend": "欢聚派队等你来参与",    // 分享好友的描述
+    "_title": 'Coach X Disney 限时嘉年华', //分享标题
+    "_desc": "欢乐时光等你来参与",    // 分享朋友圈的描述
+    "_desc_friend": "欢乐时光等你来参与",    // 分享好友的描述
     "_link": window.location.origin + '/apply',    //分享的连接
     "_imgUrl": window.location.origin + "/web/build/img/share.jpg",   //分享的图片
     "_shareAppMessageCallback": function(){
