@@ -43,12 +43,12 @@ class UserAPI extends Base {
 
   public function isUserLogin() {
     if(USER_STORAGE == 'COOKIE') {
-      if(isset($_COOKIE['_user'])) {
-        return $this->decodeUser($_COOKIE['_user']);
+      if(isset($_COOKIE['w_user'])) {
+        return $this->decodeUser($_COOKIE['w_user']);
       }
     } else {
-      if(isset($_SESSION['_user'])) {
-        return json_decode($_SESSION['_user']);
+      if(isset($_SESSION['w_user'])) {
+        return json_decode($_SESSION['w_user']);
       }
     }
     return FALSE;
@@ -63,9 +63,9 @@ class UserAPI extends Base {
     if(USER_STORAGE == 'COOKIE') {
       $request = new Request();
       $user = $this->userFinalizeDataNormalize($user);
-      setcookie('_user', $this->encodeUser($user), time() + 3600 * 24 * 10, '/', $request->getHost());
+      setcookie('w_user', $this->encodeUser($user), time() + 3600 * 24 * 10, '/', $request->getHost());
     } else {
-      $_SESSION['_user'] = json_encode($user);
+      $_SESSION['w_user'] = json_encode($user);
     }
     return $user;
   }
