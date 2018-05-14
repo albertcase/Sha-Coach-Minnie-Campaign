@@ -77,3 +77,80 @@ demo的git连接down下来之后，直接在命令行输入gulp serve 即可启�
   transform-origin: 50% 100%;
   transform: scaleY(.5);
 
+
+
+
+
+
+
+
+
+
+
+lib/UserApi.php
+
+不可模拟的
+
+public function userLoginFinalize($user) {
+  if(USER_STORAGE == 'COOKIE') {
+    $request = new Request();
+    $user = $this->userFinalizeDataNormalize($user);
+    setcookie('w_user', $this->encodeUser($user), time() + 3600 * 24 * 10, '/', $request->getHost());
+  } else {
+    $_SESSION['w_user'] = json_encode($user);
+  }
+  return $user;
+}
+
+public function isUserLogin() {
+  if(USER_STORAGE == 'COOKIE') {
+    if(isset($_COOKIE['w_user'])) {
+      return $this->decodeUser($_COOKIE['w_user']);
+    }
+  } else {
+    if(isset($_SESSION['w_user'])) {
+      return json_decode($_SESSION['w_user']);
+    }
+  }
+  return FALSE;
+}
+
+
+
+-------------------------------------------------------
+
+
+可以模拟的
+
+public function userLoginFinalize($user) {
+  if(USER_STORAGE == 'COOKIE') {
+    $request = new Request();
+    $user = $this->userFinalizeDataNormalize($user);
+    setcookie('_user', $this->encodeUser($user), time() + 3600 * 24 * 10, '/', $request->getDomain());
+  } else {
+    $_SESSION['_user'] = json_encode($user);
+  }
+  return $user;
+}
+
+public function isUserLogin() {
+  if(USER_STORAGE == 'COOKIE') {
+    if(isset($_COOKIE['_user'])) {
+      return $this->decodeUser($_COOKIE['_user']);
+    }
+  } else {
+    if(isset($_SESSION['_user'])) {
+      return json_decode($_SESSION['_user']);
+    }
+  }
+  return FALSE;
+}
+
+
+
+
+
+
+
+
+

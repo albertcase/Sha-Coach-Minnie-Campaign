@@ -29,19 +29,20 @@ for (var i = 0; i < ftli.length; i++){
         var checkFuc = check(),
             ci = checkFuc.indexOf('');
 
-        if(ci > -1){
+        
+        if(ci > -1){ // 输入错误的时候
             var errorText = formAllEl[ci].getAttribute('data-error');
             console.log(errorText);
 
             if(reserveBtn.className.indexOf('disabled') == -1){
                 reserveBtn.className = 'btn disabled';
             }
-        }else{
+        }else{ 
             if(reserveBtn.className.indexOf('disabled') > -1){
-
+                clearInterval(int);
                 count = 10;
                 countdownEl.innerHTML = "("+ count +"s)";
-                int = self.setInterval("countdown()",1000);
+                int = setInterval("countdown()",1000);
 
                 // reserveBtn.className = 'btn';
             }
