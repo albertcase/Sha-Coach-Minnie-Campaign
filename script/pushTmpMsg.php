@@ -3,47 +3,47 @@ define('SITE_URL', dirname(dirname(__FILE__)));
 require_once SITE_URL . "/vendor/autoload.php";
 require_once SITE_URL . "/config/config.php";
 
-use Lib\Helper;
-use Lib\PDO;
-use Lib\Redis;
+use CampaignBundle\HelpLib;
 
 
-$pushData = array(
-    'id' => $appid,
-    'openid' => $openid,
-    'name' => $name,
-    'date' => $date,
-    'addr' => $shopAdr,
-    'time' => $shopTime,
-);
+$help = new HelpLib();
 
-$send = sendMessage($pushData);
+$date = date('Y-m-d', strtotime('next day'));
+$notificationList = $help->getNotificationList($date);
+
+foreach($notificationList as $notification) {
+    $re = sendMessage($notification);
+    if($re->code == 200 && $re->data->errcode == 0) {
+        $help->updateSendStatus($notification['id']);
+    }
+}
+
 
 /**
  * 发送模版消息
  * param ["openid":用户标识]
  */
-function sendMessage($senddata) {
+function sendMessage($data) {
     $data = array(
-        'touser' => $senddata->openid,
+        'touser' => $data['openid'],
         'template_id' => 'WndD3kOmw-_OvtTPg0yfs0qziEWoHirCnsyXF8IiPns',
         'url' => '',
         'topcolor' => '#000000',
         'data' => array(
             'first' => array(
-                'value' => "尊敬的客人,\n您预约的COACH母亲节线下活动即将开始。\n",
+                'value' => "尊敬的顾客，您预约的Coach x Disney嘉年华即将开始。",
                 'color' => '#000000'
             ),
             'keyword1' => array(
-                'value' => $senddata->name,
+                'value' => $data['name'],
                 'color' => '#000000'
             ),
             'keyword2' => array(
-                'value' => $senddata->date,
+                'value' => $data['date'] . ' ' . $data['title'],
                 'color' => '#000000'
             ),
             'remark' => array(
-                'value' => "地址：" . $senddata['addr'] . "\n\n欢迎您在 " . $senddata['time'] . "持此份活动通知，参与活动与COACH一起共享母亲节温馨时刻",
+                'value' => "期待与你共度玩趣时尚的美妙时光。",
                 'color' => '#000000'
             )
 
@@ -51,7 +51,7 @@ function sendMessage($senddata) {
     );
     $api_url = "http://coach.samesamechina.com/v2/wx/template/send?access_token=zcBpBLWyAFy6xs3e7HeMPL9zWrd7Xy";
     $rs = postData($api_url, $data);
-    return $rs;
+    return json_decode($rs);
 }
 
 /**

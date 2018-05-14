@@ -2,7 +2,6 @@
 
 namespace CampaignBundle;
 
-use Core\Controller;
 use Lib\PDO;
 use Lib\Helper;
 
@@ -117,6 +116,30 @@ class HelpLib
             return (object) $row;
         }
         return NULL;
+    }
+
+    public function getNotificationList($date)
+    {
+        $sql = "SELECT u.openid, r.id, r.name, r.phone, t.title, i.date FROM reservation r 
+                LEFT JOIN items i ON r.item_id = i.id
+                LEFT JOIN times t ON i.tid = t.id 
+                LEFT JOIN user u ON u.uid = r.uid
+                WHERE i.date = :date AND r.send = 0
+                ";
+        $query = $this->_pdo->prepare($sql);
+        $query->execute([':date' => $date]);
+        $data = $query->fetchAll(\PDO::FETCH_ASSOC);
+        if($data) {
+            return $data;
+        }
+        return [];
+    }
+
+    public function updateSendStatus($rid)
+    {
+        $sql = "UPDATE `reservation` SET send = 1 WHERE `id` = :id";
+        $query = $this->_pdo->prepare($sql);    
+        return $query->execute([':id' => $rid]);      
     }
 
     public function normalizeReservationData($reservation)
