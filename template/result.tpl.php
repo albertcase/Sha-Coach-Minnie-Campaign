@@ -5,7 +5,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="yes" name="apple-touch-fullscreen">
     <meta content="telephone=no,email=no" name="format-detection">
-    <title>Coach蔻驰</title>
+    <title>Coach X Disney 限时嘉年华</title>
 </head>
 <link href = "http://cdn.minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
 <script>
@@ -48,7 +48,6 @@ var _hmt = _hmt || [];
                     <div class="success-text">
                         亲爱的<?php print $item->name;?> <br />
                         <?php print $item->date;?><br />
-                        fdglkhjdflghjgdflhjfdlh
                         <?php print $item->shop;?>店铺期待您的莅临！
                     </div>
                     

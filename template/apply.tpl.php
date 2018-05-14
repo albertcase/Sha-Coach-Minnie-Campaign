@@ -8,7 +8,7 @@
     <meta name="x5-orientation" content="portrait">
     <meta name="screen-orientation" content="portrait">
     <meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Coach蔻驰</title>
+    <title>Coach X Disney 限时嘉年华</title>
 </head>
 
 <link href = "http://cdn.minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
