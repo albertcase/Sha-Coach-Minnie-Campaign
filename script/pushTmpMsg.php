@@ -15,6 +15,7 @@ foreach($notificationList as $notification) {
     $re = sendMessage($notification);
     if($re->code == 200 && $re->data->errcode == 0) {
         $help->updateSendStatus($notification['id']);
+        echo "{$re->code} - {$notification['name']} - {$notification['date']} {$notification['title']}\n";
     }
 }
 
