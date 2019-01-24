@@ -11,7 +11,7 @@
     <title>Coach X Disney 限时嘉年华</title>
 </head>
 
-<link href = "http://cdn.minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
+<link href = "http://minnie.coach.samesamechina.com/web/build/css/style.css" rel="stylesheet" type="text/css">
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -23,8 +23,8 @@ var _hmt = _hmt || [];
 </script>
 
 <!-- 引入适配方案-->
-<script src="http://cdn.minnie.coach.samesamechina.com/web/lib/lib-flexible/flexible.js"></script>
-<script type="text/javascript" src="http://coach.samesamechina.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
+<script src="http://minnie.coach.samesamechina.com/web/lib/lib-flexible/flexible.js"></script>
+<script type="text/javascript" src="http://api.coach.wechatio.com/api/v1/js/2f515ea7-bbbb-45a5-aed2-4988576b856d/wechat"></script>
 
 <body>
 <div id="wrapper">
@@ -116,9 +116,9 @@ var _hmt = _hmt || [];
 
     </section>
 </div>
-<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/common.js"></script>
-<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/public.js"></script>
-<script src="http://cdn.minnie.coach.samesamechina.com/web/build/js/apply.js"></script>
+<script src="http://minnie.coach.samesamechina.com/web/build/js/common.js"></script>
+<script src="http://minnie.coach.samesamechina.com/web/build/js/public.js"></script>
+<script src="http://minnie.coach.samesamechina.com/web/build/js/apply.js"></script>
 
 </body>
 </html>
